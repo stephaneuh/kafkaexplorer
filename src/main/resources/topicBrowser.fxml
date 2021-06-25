@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
+   <children>
+      <GridPane VBox.vgrow="NEVER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="6.0" minWidth="6.0" prefWidth="6.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="34.0" minWidth="34.0" prefWidth="34.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="83.0" prefWidth="83.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.0" minWidth="355.0" prefWidth="373.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="240.0" prefWidth="282.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="42.0" minWidth="42.0" prefWidth="42.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="258.0" prefWidth="258.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="11.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="57.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="80.0" minHeight="80.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+                  <Label prefHeight="17.0" prefWidth="99.0" text="Topic Name" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="topic" editable="false" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <TableView fx:id="partitionTable" minWidth="300.0" prefHeight="134.0" prefWidth="407.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <Label layoutX="47.0" layoutY="95.0" prefHeight="17.0" prefWidth="99.0" text="Partitions" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Label layoutX="47.0" layoutY="53.0" prefHeight="17.0" prefWidth="99.0" text="Browse Messages" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9" />
+            <JFXButton fx:id="startButton" minWidth="70.0" onMouseClicked="#startBrowsing" prefWidth="70.0" text="Start" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="170.0" />
+               </GridPane.margin></JFXButton>
+            <JFXButton fx:id="stopButton" layoutX="124.0" layoutY="273.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#stopBrowsing" prefWidth="70.0" text="Stop" GridPane.columnIndex="4" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="250.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <Label layoutX="28.0" layoutY="372.0" prefHeight="17.0" prefWidth="99.0" text="Produce Message" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="produceMsg" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+            <JFXButton mnemonicParsing="false" onMouseClicked="#produceMessage" text="Produce" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton mnemonicParsing="false" onMouseClicked="#clearMsgTable" text="Clear table" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="70.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <Label text="Config" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <TableView fx:id="topicConfigTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2" GridPane.rowSpan="2">
+      </TableView>
+            <HBox prefHeight="42.0" prefWidth="258.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+               <children>
+                  <JFXRadioButton fx:id="radioNone" prefHeight="17.0" prefWidth="64.0" selected="true" text="None">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="schemaType" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="radioAvro" prefHeight="17.0" prefWidth="60.0" text="Avro" toggleGroup="$schemaType">
+                     <HBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                     </HBox.margin>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="radioJson" prefHeight="17.0" prefWidth="180.0" text="Json Schema      Schema Id" toggleGroup="$schemaType">
+                     <HBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                     </HBox.margin>
+                  </JFXRadioButton>
+                  <JFXTextField fx:id="schemaId" prefHeight="25.0" prefWidth="48.0">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <Label prefHeight="17.0" prefWidth="99.0" text="Schema" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label layoutX="16.0" layoutY="312.0" prefHeight="17.0" prefWidth="99.0" text="Type" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="4" />
+            <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="9" />
+            <Separator prefWidth="335.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Separator>
+            <Label prefHeight="17.0" prefWidth="99.0" text="Enter Message" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <JFXComboBox fx:id="browsingType" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin></JFXComboBox>
+            <JFXButton fx:id="exportData" mnemonicParsing="false" onMouseClicked="#exportTableToCSV" text="Export table in CSV" GridPane.columnIndex="7" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="115.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onFavClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@fav_0.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </ImageView>
+            <JFXComboBox fx:id="partitionID" layoutX="133.0" layoutY="417.0" prefHeight="27.0" prefWidth="83.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="250.0" />
+               </GridPane.margin>
+            </JFXComboBox>
+            <JFXTextField fx:id="offset" layoutX="50.0" layoutY="337.0" maxWidth="100.0" minWidth="100.0" prefHeight="27.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="430.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label layoutX="50.0" layoutY="422.0" prefHeight="17.0" prefWidth="60.0" text="Partition" GridPane.columnIndex="3" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="180.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="313.0" layoutY="422.0" prefHeight="17.0" prefWidth="60.0" text="Offset" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+              </children>
+          </GridPane>
+      <TableView fx:id="messagesTable" editable="true" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

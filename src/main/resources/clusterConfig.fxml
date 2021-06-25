@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="rootGridPane" minWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.ClusterConfigController">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="13.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="8.0" prefWidth="26.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="86.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="0.0" prefWidth="46.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="647.0" minWidth="10.0" prefWidth="299.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="0.0" prefWidth="358.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="0.0" prefWidth="75.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="95.0" />
+        </columnConstraints>
+        <rowConstraints>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+         <RowConstraints maxHeight="30.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="52.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="69.0" minHeight="37.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="41.0" minHeight="18.0" prefHeight="18.0" vgrow="NEVER" />
+        </rowConstraints>
+        <children>
+            <TextField id="bootstrap" fx:id="bootstrap" maxWidth="400.0" minWidth="400.0" prefWidth="400.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label text="security.protocol" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Label text="( from jaas.config property)" GridPane.columnIndex="5" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></Label>
+            <Label layoutX="79.0" layoutY="79.0" text="sasl.mechanism" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="saslMechanism" maxWidth="312.0" minWidth="200.0" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+
+            <JFXButton mnemonicParsing="false" onMouseClicked="#connectToKafka" text="Connect" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
+         <TextField fx:id="name" maxWidth="298.0" minWidth="200.0" prefHeight="25.0" prefWidth="298.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+         <Label text="Cluster name" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" />
+      <Label GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="8" />
+      <Label text="Ex: PLAINTEXT or SASL_SSL" GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="securityType" maxWidth="306.0" minWidth="200.0" prefHeight="25.0" prefWidth="306.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Label layoutX="55.0" layoutY="77.0" prefHeight="17.0" prefWidth="148.0" text="Jks truststore location" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+      <TextField fx:id="jks" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+      <Label prefHeight="38.0" prefWidth="644.0" text="Help:&#10;If you are connected     but don't see any topics. You need to &quot;ALLOW&quot; the &quot;DESCRIBE&quot; ACL on the required &quot;TOPICS&quot;." GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="16" GridPane.valignment="BOTTOM" />
+      <Label layoutX="49.0" layoutY="197.0" text="consumer group" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+      <TextField fx:id="consumerGroup" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+      <Label layoutX="49.0" layoutY="137.0" text="bootstrap.servers" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="16" GridPane.valignment="BOTTOM">
+         <image>
+            <Image url="@kafka-icon-green.png" />
+         </image>
+         <GridPane.margin>
+            <Insets bottom="5.0" left="110.0" />
+         </GridPane.margin>
+      </ImageView>
+      <JFXButton mnemonicParsing="false" onMouseClicked="#saveCluster" text="Save" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
+      <JFXButton mnemonicParsing="false" onMouseClicked="#browseJKS" text="Browse" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></JFXButton>
+      <JFXButton mnemonicParsing="false" onMouseClicked="#deleteCluster" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="15" />
+      <Label prefHeight="17.0" prefWidth="148.0" text="Jks truststore password" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <TextField fx:id="jksPwd" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+      <Label text="Ex: [empty] or PLAIN" GridPane.columnIndex="5" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Schema Registry (optional)" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+      <Label text="URL" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Label text="BASIC Auth username" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="12" />
+      <Label text="BASIC Auth password" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+      <TextField fx:id="srUrl" maxWidth="298.0" minWidth="200.0" prefHeight="25.0" prefWidth="298.0" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+      <TextField fx:id="srUser" maxWidth="298.0" minWidth="200.0" prefHeight="25.0" prefWidth="298.0" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+      <TextField fx:id="srPwd" maxWidth="298.0" minWidth="200.0" prefHeight="25.0" prefWidth="298.0" GridPane.columnIndex="4" GridPane.rowIndex="13" />
+      <Label text="username (api key)" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+      <Label text="password (api secret)" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <JFXTextField fx:id="apiKey" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <JFXTextField fx:id="apiSecret" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <Label text="Cluster Information" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="4" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+          </children>
+    </GridPane>
