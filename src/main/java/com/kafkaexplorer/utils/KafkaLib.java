@@ -146,14 +146,15 @@ public class KafkaLib {
     }
 
 
-    public void browseTopic(Cluster cluster, String topicName, String browseFrom, TableView messagesTable, Button startButton, Button stopButton, int partitionID, long offset) {
+    public void browseTopic(Cluster cluster, String topicName, String browseFrom, TableView messagesTable, Button startButton, Button stopButton, int partitionID, long offset, List<PartitionInfo> partitionInfo) {
 
         this.setProps(cluster);
 
         MyLogger.logDebug("Browsing topic: " + topicName + ", Type: " + browseFrom + ", from partition: " + partitionID + ", offset:" + offset);
 
         //props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
-        //props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); //or latest
+        //if no offset exists for this consumer group on the partition: reset to earliest
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(this.getProps());
 
@@ -164,8 +165,15 @@ public class KafkaLib {
         //ConsumerRecords<String, String> records =
 
         if (browseFrom.equals("from-beginning")) { // Read from all partitions from the beginning
-            consumer.subscribe(Arrays.asList(topicName));
-            consumer.seekToBeginning(consumer.assignment());
+            //consumer.subscribe(Arrays.asList(topicName));
+            //  consumer.seekToBeginning(consumer.assignment());
+
+            for (int i = 0; i < partitionInfo.size(); i++) {
+                TopicPartition topicPartition = new TopicPartition(topicName, partitionInfo.get(i).partition());
+                consumer.assign(Collections.singleton(topicPartition));
+                consumer.seekToBeginning(Collections.singleton(topicPartition));
+            }
+
         } else //Read from a specific partition and offset
         {
                 MyLogger.logDebug("Browsing from specific partition/offset");
@@ -196,18 +204,20 @@ public class KafkaLib {
             while (continueBrowsing) {
                 ConsumerRecords<String, String> records = consumer.poll(5000);
                 for (ConsumerRecord<String, String> record : records) {
+                    if (!continueBrowsing){
+                        break;
+                    }
                     Map<String, Object> item1 = new HashMap<>();
                     item1.put("Offset", record.offset());
                     item1.put("Partition", record.partition());
 
-                    //for (Header header : record.headers()) {
-                    //    String attributeName = header.key();
-                    //    String attributeValue = header.value().toString();
-                    //}
                     Date date = new Date(record.timestamp());
                     Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     item1.put("Created", format.format(date).toString());
 
+                    if (!continueBrowsing){
+                        break;
+                    }
 
                     byte[] payload = record.value().getBytes();
 
@@ -230,7 +240,9 @@ public class KafkaLib {
                             SchemaString schemaString = restService.getId(schemaId);
                             schemaReceived = true;
 
-
+                        if (!continueBrowsing){
+                            break;
+                        }
                         //Get the subject from SchemaId
                         List<String> schemaSubjects = restService.getAllSubjectsById(schemaId);
                         List<SubjectVersion> schemaSubjectsVersions = restService.getAllVersionsById(schemaId);

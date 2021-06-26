@@ -57,6 +57,7 @@ public class TopicBrowserController implements Initializable {
     public JFXComboBox partitionID;
     private TreeView<String> kafkaTreeRef;
     private Cluster cluster;
+    private List<PartitionInfo> partitionInfo;
 
     final KafkaLib kafkaConnector = new KafkaLib();
     private static DecimalFormat df2 = new DecimalFormat("#.##");
@@ -159,7 +160,7 @@ public class TopicBrowserController implements Initializable {
             protected Integer call() throws Exception {
 
                 KafkaLib kafkaConnector = new KafkaLib();
-                List<PartitionInfo> partitionInfo = kafkaConnector.getTopicPartitionInfo(cluster, topicName);
+                partitionInfo = kafkaConnector.getTopicPartitionInfo(cluster, topicName);
                 displayPartitionInfo(partitionInfo);
 
                 //Add partition number to partitionId DropDown
@@ -333,7 +334,7 @@ public class TopicBrowserController implements Initializable {
         Task<Integer> task = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                kafkaConnector.browseTopic(cluster, topic.getText(), browsingType.getValue().toString(), messagesTable,startButton, stopButton, Integer.parseInt(partitionID.getSelectionModel().getSelectedItem().toString()), Long.valueOf(offset.getText()));
+                kafkaConnector.browseTopic(cluster, topic.getText(), browsingType.getValue().toString(), messagesTable,startButton, stopButton, Integer.parseInt(partitionID.getSelectionModel().getSelectedItem().toString()), Long.valueOf(offset.getText()), partitionInfo);
                 return 0;
             }
 
