@@ -44,15 +44,18 @@ Have questions? [Q&A section](https://github.com/stephaneuh/kafkaexplorer/discus
 ## How to install
 
 
-### Windows: 
-Download and install the latest version: [Kafkaexplorer_1.1.exe](/releases/Kafkaexplorer_1.1.exe)
+### Windows with Chocolatey: 
+```
+choco install kafkaexplorer --version=1.1
+```
+or download and install manually the latest version: [Kafkaexplorer_1.1.exe](/releases/Kafkaexplorer_1.1.exe)
 ### MacOs with Brew: 
 ```
 brew tap stephaneuh/homebrew-repo
 brew install kafkaexplorer
 ```
 or
-download and install the latest version manually: [Kafkaexplorer_1.1.dmg](/releases/Kafkaexplorer_1.1.dmg)
+download and install manually the latest version: [Kafkaexplorer_1.1.dmg](/releases/Kafkaexplorer_1.1.dmg)
 
 ## How to connect to a Kafka cluster
 ![Alt text](img/newCluster2.PNG "Main")
