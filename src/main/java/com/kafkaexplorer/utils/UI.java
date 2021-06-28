@@ -37,7 +37,7 @@ public class UI {
             //build kafka cluster tree
             Node rootIcon = new ImageView(new Image(getClass().getResourceAsStream("/kafka-icon-grey.png")));
             TreeItem<String> clusterItem = new TreeItem<String>(clusters[i].getName(), rootIcon);
-            System.out.println("ADD items: " + clusters[i].getName());
+            MyLogger.logDebug("ADD items: " + clusters[i].getName());
 
             root.getChildren().add(clusterItem);
         }
@@ -51,7 +51,7 @@ public class UI {
 
 
     public void manageFav(String topicName, String clusterName, Boolean isFav){
-        System.out.println(topicName + " >> " + clusterName + " >> " + isFav);
+        MyLogger.logDebug(topicName + " >> " + clusterName + " >> " + isFav);
 
 
     }

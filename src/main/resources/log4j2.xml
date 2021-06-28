@@ -28,7 +28,7 @@
     </Appenders>
 
     <Loggers>
-        <Root level="INFO">
+        <Root level="ERROR">
             <AppenderRef ref="fileLogger"/>
             <AppenderRef ref="Console"/>
         </Root>

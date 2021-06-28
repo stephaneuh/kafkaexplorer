@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.stream.IntStream;
+import com.kafkaexplorer.logger.MyLogger;
 
 public class ConfigStore {
 
@@ -108,7 +109,7 @@ public class ConfigStore {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
         }
 
         //Debug
@@ -119,7 +120,7 @@ public class ConfigStore {
     }
 
     public boolean saveCluster(Cluster cluster) {
-        System.out.println("Cluster to save: " + cluster.getId());
+        MyLogger.logDebug("Cluster to save: " + cluster.getId());
         //real yaml file
         try {
             Cluster[] clusters = this.loadClusters();
@@ -139,13 +140,13 @@ public class ConfigStore {
             return true;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
             return false;
         }
     }
 
     public boolean addCluster(Cluster cluster) {
-        System.out.println("Cluster to add: " + cluster.getId());
+        MyLogger.logDebug("Cluster to add: " + cluster.getId());
         //real yaml file
         try {
             Cluster[] clusters = this.loadClusters();
@@ -164,14 +165,14 @@ public class ConfigStore {
             return true;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
             return false;
         }
     }
 
 
     public boolean deleteCluster(Cluster cluster) {
-        System.out.println("Cluster to delete: " + cluster.getId());
+        MyLogger.logDebug("Cluster to delete: " + cluster.getId());
 
          int indexToDelete = -1;
         //real yaml file
@@ -212,7 +213,7 @@ public class ConfigStore {
             return true;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
             return false;
         }
 

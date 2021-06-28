@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import com.kafkaexplorer.logger.MyLogger;
 
 public class TopicBrowserController implements Initializable {
 
@@ -392,7 +393,7 @@ public class TopicBrowserController implements Initializable {
         }
         else {
             //todo: Message please provide schemaID
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> please provide schemaID");
+            MyLogger.logDebug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> please provide schemaID");
         }
     }
 
@@ -430,8 +431,8 @@ public class TopicBrowserController implements Initializable {
                 myWriter.write(csvData);
                 myWriter.close();
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MyLogger.logDebug("An error occurred.");
+                MyLogger.logError(e);
             }
 
 

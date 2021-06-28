@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 
 public class MyLogger {
 
@@ -21,5 +24,9 @@ public class MyLogger {
     public static void logDebug(String msg){
         getLogger().debug(msg);
     }
-
+    public static void logError(Exception e){
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        getLogger().error(errors.toString());
+    }
 }

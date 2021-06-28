@@ -155,7 +155,7 @@ public class ClusterConfigController implements Initializable {
                 try {
                     kafkaConnector.connect(cluster);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    MyLogger.logError(e);
                 }
                 ArrayList<String> topics = kafkaConnector.listTopics(cluster);
                 cluster.setTopicList(topics);
@@ -252,13 +252,17 @@ public class ClusterConfigController implements Initializable {
 
         task.setOnFailed(evt -> {
 
+            MyLogger.logError((Exception) task.getException());
+            //show an alert Dialog
+            Alert a = new Alert(Alert.AlertType.ERROR);
             StringWriter errors = new StringWriter();
             task.getException().printStackTrace(new PrintWriter(errors));
 
-            MyLogger.logDebug("The task failed with the following exception: " + errors.toString());
-            //show an alert Dialog
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setContentText(errors.toString());
+            if (errors.toString().toLowerCase().contains("timeout"))
+                a.setContentText("Timeout! See logs for details");
+            else
+                a.setContentText("Can't connect! See logs for details");
+
             a.show();
             ((ProgressIndicator)rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
 
@@ -363,7 +367,7 @@ public class ClusterConfigController implements Initializable {
                 this.rootGridPane.getChildren().clear();
 
             } catch (IOException e) {
-                e.printStackTrace();
+                MyLogger.logError(e);
             }
         }
     }

@@ -196,7 +196,7 @@ public class KafkaLib {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
         }
 
 
@@ -301,7 +301,7 @@ public class KafkaLib {
 
         Producer<String, String> producer = new KafkaProducer<String, String>( this.getProps());
 
-        System.out.println("SchemaId" + schemaId);
+        MyLogger.logDebug("SchemaId" + schemaId);
 
         //Handle an exception from the callback
      try {

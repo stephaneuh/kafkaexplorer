@@ -1,5 +1,6 @@
 package com.kafkaexplorer;
 
+import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
 import com.kafkaexplorer.utils.KafkaLib;
 import javafx.collections.FXCollections;
@@ -69,7 +70,7 @@ public class ConsumerGroupController implements Initializable {
                 KafkaFuture<Map<String, ConsumerGroupDescription>> consumerGroupInfo = kafkaConnector.getConsumerGroupInfo(cluster, consumerGroupName);
                 consumerGroupInfo.get().forEach((groupName, groupDescription) ->{
                       //     Map<String, Object> item1 = new HashMap<>();
-                           System.out.println(">>>>>>>>" + groupName + " Size: " + groupDescription.members().size());
+                           MyLogger.logDebug(">>>>>>>>" + groupName + " Size: " + groupDescription.members().size());
 
 
 
@@ -83,7 +84,7 @@ public class ConsumerGroupController implements Initializable {
 
 
                // for (final Map.Entry<org.apache.kafka.common.TopicPartition, OffsetAndMetadata> entry : consumerGroupInfo.get().entrySet()) {
-              //      System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" + entry.getKey().partition() + ">>>" + entry.getValue().offset());
+              //      MyLogger.logDebug("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" + entry.getKey().partition() + ">>>" + entry.getValue().offset());
               //  }
 
 

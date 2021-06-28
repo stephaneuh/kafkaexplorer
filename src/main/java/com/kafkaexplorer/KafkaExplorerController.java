@@ -33,7 +33,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.UUID;
-
+import com.kafkaexplorer.logger.MyLogger;
 
 public class KafkaExplorerController implements Initializable {
 
@@ -69,7 +69,7 @@ public class KafkaExplorerController implements Initializable {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
         }
 
     }
@@ -160,7 +160,7 @@ public class KafkaExplorerController implements Initializable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
         }
 
     }
@@ -179,7 +179,7 @@ public class KafkaExplorerController implements Initializable {
             new UI().refreshClusterList(kafkaTree);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.logError(e);
         }
 
 
@@ -231,7 +231,6 @@ public class KafkaExplorerController implements Initializable {
             }
         });
 
-
         Hyperlink linkLogs = new Hyperlink();
         linkLogs.setText("\n [Show Log Folder]");
         linkLogs.setOnAction(new EventHandler<ActionEvent>() {
@@ -245,13 +244,11 @@ public class KafkaExplorerController implements Initializable {
             }
         });
 
-
         content.getChildren().addAll(imageView, label3, link, label2, label5, contribLink, linkLogs);
         content.setAlignment(Pos.CENTER);
 
         alert.getDialogPane().setContent(content);
 
-        //alert.setContentText("- Stephane ris (stephane.ris@icloud.com)");
         alert.initStyle(StageStyle.UNDECORATED);
 
         alert.showAndWait();
