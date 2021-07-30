@@ -68,8 +68,10 @@ public class ConfigStore {
                  throw new IOException("Failed to create directory");
 
          File file = new File(configDir, "config.yaml");
+         MyLogger.logDebug("Config file location: "+ configDir);
 
-         if (!file.exists()) {
+         if (file.createNewFile()) {
+             MyLogger.logDebug("File "+ configDir + "config.yaml doesn't exist, the file has been created");
              //create empty config file
              Cluster[] emptyClusters = new Cluster[]{};
              saveYaml(emptyClusters);
@@ -221,11 +223,12 @@ public class ConfigStore {
 
     private void saveYaml(Cluster[] clusters) throws IOException {
 
-    //save file
-    ObjectMapper om = new ObjectMapper(new YAMLFactory());
-            om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            om.writeValue(new File(System.getProperty("user.home") + File.separator + ".kafkaexplorer" + File.separator + "config.yaml"), clusters);
-
+        //save file
+        MyLogger.logDebug("Saving config file!");
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
+        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        om.writeValue(new File(System.getProperty("user.home") + File.separator + ".kafkaexplorer" + File.separator + "config.yaml"), clusters);
+        MyLogger.logDebug("Saving config file - DONE!");
     }
 
 }
