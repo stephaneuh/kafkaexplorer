@@ -1,6 +1,7 @@
 package com.kafkaexplorer;
 import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.model.Cluster;
+import com.kafkaexplorer.utils.HostServicesProvider;
 import com.kafkaexplorer.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -204,11 +205,9 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URL("http://kafkaexplorer.com").toURI());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (URISyntaxException e2) {
-                    e2.printStackTrace();
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument("http://kafkaexplorer.com");
+                } catch (Exception e1) {
+                    MyLogger.logError(e1);
                 }
             }
         });
@@ -222,11 +221,9 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URL("https://github.com/stephaneuh").toURI());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (URISyntaxException e2) {
-                    e2.printStackTrace();
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument("https://github.com/stephaneuh");
+                } catch (Exception e1) {
+                    MyLogger.logError(e1);
                 }
             }
         });
@@ -237,9 +234,10 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/logs"));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                    MyLogger.logInfo("Initiate show logs folder.");
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument(System.getProperty("user.dir") + "/logs");
+                } catch (Exception e1) {
+                    MyLogger.logError(e1);
                 }
             }
         });

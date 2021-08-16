@@ -51,10 +51,7 @@ public class ConfigStore {
         } catch (IOException e) {
             errorList.put("config.yaml format error.", e.getMessage());
         }
-
-
         return errorList;
-
     }
 
 
