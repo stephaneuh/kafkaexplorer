@@ -83,9 +83,6 @@ public class KafkaExplorerController implements Initializable {
             // Get selected Node
             Node node = mouseEvent.getPickResult().getIntersectedNode();
 
-
-
-
             //Ensure that user clicked on a TreeCell
             if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
                 TreeItem selectedItem = (TreeItem) kafkaTree.getSelectionModel().getSelectedItem();
@@ -119,7 +116,6 @@ public class KafkaExplorerController implements Initializable {
 
                 } //If selectedItem is a topic, display topic browser screen
                 else if (selectedItem.getParent() != null && selectedItem.getParent().getGraphic() instanceof HBox) {
-
                     FXMLLoader topicBrowserLoader = new FXMLLoader(getClass().getResource("/topicBrowser.fxml"));
                     VBox mainRoot = topicBrowserLoader.load();
 
@@ -140,7 +136,6 @@ public class KafkaExplorerController implements Initializable {
                     mainContent.getItems().add(mainRoot);
                 } //If selectedItem is a consumer group, display consumer group screen
                 else if (selectedItem.getParent() != null && selectedItem.getParent().getValue() == "consumer-groups") {
-
                     FXMLLoader consumerGroupBrowserLoader = new FXMLLoader(getClass().getResource("/consumerBrowser.fxml"));
                     VBox mainRoot = consumerGroupBrowserLoader.load();
 
@@ -151,7 +146,6 @@ public class KafkaExplorerController implements Initializable {
 
                     //Get cluster info from cluster name
                     Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
-
                     consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
 
                     if (mainContent.getItems().size() > 1)
@@ -160,10 +154,9 @@ public class KafkaExplorerController implements Initializable {
                     mainContent.getItems().add(mainRoot);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             MyLogger.logError(e);
         }
-
     }
 
 
