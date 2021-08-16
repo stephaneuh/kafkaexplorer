@@ -9,13 +9,14 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.stream.IntStream;
 import com.kafkaexplorer.logger.MyLogger;
 
 public class ConfigStore {
+
+    private String baseDir = ".kafkaExplorer";
 
     public ConfigStore() {
     }
@@ -24,7 +25,7 @@ public class ConfigStore {
 
         HashMap<String, String> errorList = new HashMap<String, String>();
 
-        String path = System.getProperty("user.home") + File.separator + ".kafkaexplorer" + File.separator + "config.yaml";
+        String path = System.getProperty("user.home") + File.separator + this.baseDir + File.separator + "config.yaml";
         File file = new File(path);
 
         // Instantiating a new ObjectMapper as a YAMLFactory
@@ -50,27 +51,29 @@ public class ConfigStore {
         } catch (IOException e) {
             errorList.put("config.yaml format error.", e.getMessage());
         }
-
-
         return errorList;
-
     }
 
 
      public Cluster[] loadClusters() throws IOException {
 
-         //Load config.yaml file from the user.home/kafkaexplorer/config.yaml
-        // String path = System.getProperty("user.home") + File.separator + ".kafkaexplorer" + File.separator + "config.yaml";
-
-         File configDir = new File(System.getProperty("user.home"), ".kafkaExplorer");
+         File configDir = new File(System.getProperty("user.home"), this.baseDir);
          if (!configDir.isDirectory())
              if (!configDir.mkdirs())
                  throw new IOException("Failed to create directory");
 
          File file = new File(configDir, "config.yaml");
+         MyLogger.logDebug("Config file location: "+ configDir);
 
-         if (!file.exists()) {
+         if (file.createNewFile()) {
+             MyLogger.logDebug("File "+ file.getAbsoluteFile() + " doesn't exist, the file has been created");
              //create empty config file
+             FileWriter fw = new FileWriter(file.getAbsoluteFile());
+             BufferedWriter bw = new BufferedWriter(fw);
+             bw.write("### Config");
+             bw.close();
+             fw.close();
+
              Cluster[] emptyClusters = new Cluster[]{};
              saveYaml(emptyClusters);
          }
@@ -90,8 +93,8 @@ public class ConfigStore {
 
         Cluster cluster = new Cluster();
 
-        //Load config.yaml file from the user.home/kafkaexplorer/config.yaml
-        String path = System.getProperty("user.home") + File.separator + ".kafkaexplorer" + File.separator + "config.yaml";
+        //Load config.yaml from disk
+        String path = System.getProperty("user.home") + File.separator + this.baseDir + File.separator + "config.yaml";
         File file = new File(path);
 
         // Instantiating a new ObjectMapper as a YAMLFactory
@@ -221,11 +224,13 @@ public class ConfigStore {
 
     private void saveYaml(Cluster[] clusters) throws IOException {
 
-    //save file
-    ObjectMapper om = new ObjectMapper(new YAMLFactory());
-            om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            om.writeValue(new File(System.getProperty("user.home") + File.separator + ".kafkaexplorer" + File.separator + "config.yaml"), clusters);
-
+        //save file
+        String pathName = System.getProperty("user.home") + File.separator + this.baseDir + File.separator + "config.yaml";
+        MyLogger.logDebug("Saving config file at " + pathName);
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
+        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        om.writeValue(new File(pathName), clusters);
+        MyLogger.logDebug("Saving config file - DONE!");
     }
 
 }

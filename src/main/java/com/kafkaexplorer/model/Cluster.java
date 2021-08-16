@@ -55,11 +55,18 @@ public class Cluster {
     }
 
     public String getSrUser() {
-        return this.srUser;
+
+        if (this.srUser == null)
+            return "";
+        else
+            return this.srUser;
     }
 
     public String getSrPwd() {
-        return this.srPwd;
+        if (this.srPwd == null)
+            return "";
+        else
+             return this.srPwd;
     }
 
     public void setName(String name) {
@@ -83,7 +90,7 @@ public class Cluster {
         if (name == null)
             return "";
         else
-        return name;
+            return name;
     }
 
     public String getProtocol() {
@@ -111,7 +118,10 @@ public class Cluster {
     }
 
     public String getHostname() {
-        return hostname;
+        if (hostname == null)
+            return "";
+        else
+            return hostname;
     }
 
     public void setHostname(String hostname) {
@@ -180,10 +190,12 @@ public class Cluster {
         this.srPwd = srPwd;
     }
 
+    @JsonIgnore
     public void setTopicList(ArrayList<String> topics) {
         this.topicList = topics;
     }
 
+    @JsonIgnore
     public ArrayList<String> getTopicList() {
         return this.topicList;
     }

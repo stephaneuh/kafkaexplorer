@@ -1,6 +1,7 @@
 package com.kafkaexplorer;
 import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.model.Cluster;
+import com.kafkaexplorer.utils.HostServicesProvider;
 import com.kafkaexplorer.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -82,9 +83,6 @@ public class KafkaExplorerController implements Initializable {
             // Get selected Node
             Node node = mouseEvent.getPickResult().getIntersectedNode();
 
-
-
-
             //Ensure that user clicked on a TreeCell
             if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
                 TreeItem selectedItem = (TreeItem) kafkaTree.getSelectionModel().getSelectedItem();
@@ -118,7 +116,6 @@ public class KafkaExplorerController implements Initializable {
 
                 } //If selectedItem is a topic, display topic browser screen
                 else if (selectedItem.getParent() != null && selectedItem.getParent().getGraphic() instanceof HBox) {
-
                     FXMLLoader topicBrowserLoader = new FXMLLoader(getClass().getResource("/topicBrowser.fxml"));
                     VBox mainRoot = topicBrowserLoader.load();
 
@@ -139,7 +136,6 @@ public class KafkaExplorerController implements Initializable {
                     mainContent.getItems().add(mainRoot);
                 } //If selectedItem is a consumer group, display consumer group screen
                 else if (selectedItem.getParent() != null && selectedItem.getParent().getValue() == "consumer-groups") {
-
                     FXMLLoader consumerGroupBrowserLoader = new FXMLLoader(getClass().getResource("/consumerBrowser.fxml"));
                     VBox mainRoot = consumerGroupBrowserLoader.load();
 
@@ -150,7 +146,6 @@ public class KafkaExplorerController implements Initializable {
 
                     //Get cluster info from cluster name
                     Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
-
                     consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
 
                     if (mainContent.getItems().size() > 1)
@@ -159,10 +154,9 @@ public class KafkaExplorerController implements Initializable {
                     mainContent.getItems().add(mainRoot);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             MyLogger.logError(e);
         }
-
     }
 
 
@@ -204,11 +198,9 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URL("http://kafkaexplorer.com").toURI());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (URISyntaxException e2) {
-                    e2.printStackTrace();
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument("http://kafkaexplorer.com");
+                } catch (Exception e1) {
+                    MyLogger.logError(e1);
                 }
             }
         });
@@ -222,11 +214,9 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URL("https://github.com/stephaneuh").toURI());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (URISyntaxException e2) {
-                    e2.printStackTrace();
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument("https://github.com/stephaneuh");
+                } catch (Exception e1) {
+                    MyLogger.logError(e1);
                 }
             }
         });
@@ -237,9 +227,10 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/logs"));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                    MyLogger.logInfo("Initiate show logs folder.");
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument(System.getProperty("user.dir") + "/logs");
+                } catch (Exception e1) {
+                    MyLogger.logError(e1);
                 }
             }
         });

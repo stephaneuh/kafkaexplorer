@@ -1,6 +1,8 @@
 package com.kafkaexplorer;
 
+import com.kafkaexplorer.utils.HostServicesProvider;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +20,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        HostServicesProvider.INSTANCE.init(getHostServices());
         Locale.setDefault(new Locale("en", "CA"));
         Parent root = FXMLLoader.load(getClass().getResource("/kafkaExplorer.fxml"));
         primaryStage.setTitle("Kafka Explorer (community-edition)");
@@ -27,7 +30,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

@@ -40,23 +40,20 @@ public class ClusterConfigController implements Initializable {
 
     @FXML
     public TextField name;
-
-    @FXML
     public TextField securityType;
     public TextField jks;
     public TextField  jksPwd;
     public StackPane stack;
-    @FXML
     public TextField bootstrap;
-    @FXML
     public TextField saslMechanism;
     public TextField consumerGroup;
     public GridPane rootGridPane;
     public TextField srUrl;
     public TextField srUser;
     public TextField srPwd;
-    public JFXTextField apiKey;
-    public JFXTextField apiSecret;
+    public TextField apiKey;
+    public TextField apiSecret;
+
     private Cluster cluster;
     private TreeView<String> kafkaTreeRef;
 
@@ -102,7 +99,7 @@ public class ClusterConfigController implements Initializable {
                 saslMechanism.setText(cluster.getMechanism());
                 securityType.setText(cluster.getProtocol());
                 apiKey.setText(cluster.getApiKey());
-                apiSecret.setText(cluster.getApiSecret());
+                //apiSecret.setText(cluster.getApiSecret());
 
                 consumerGroup.setText(cluster.getConsumerGroup());
                 srUrl.setText(cluster.getSrUrl());

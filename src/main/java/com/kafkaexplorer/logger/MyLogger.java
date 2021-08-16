@@ -24,6 +24,9 @@ public class MyLogger {
     public static void logDebug(String msg){
         getLogger().debug(msg);
     }
+    public static void logInfo(String msg){
+        getLogger().info(msg);
+    }
     public static void logError(Exception e){
         StringWriter errors = new StringWriter();
         e.printStackTrace(new PrintWriter(errors));
