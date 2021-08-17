@@ -201,7 +201,9 @@ public class KafkaLib {
 
 
         try {
-            while (continueBrowsing) {
+            long startTime = System.currentTimeMillis();
+
+            while (continueBrowsing && (System.currentTimeMillis()-startTime) < 600000) { // timeout of 10 min
                 ConsumerRecords<String, String> records = consumer.poll(5000);
                 for (ConsumerRecord<String, String> record : records) {
                     if (!continueBrowsing){
@@ -283,7 +285,7 @@ public class KafkaLib {
                 }
 
             }
-
+            MyLogger.logInfo("Browsing thread stopped");
         } catch (Exception e) {
             StringWriter errors = new StringWriter();
             e.printStackTrace(new PrintWriter(errors));
@@ -292,6 +294,7 @@ public class KafkaLib {
         } finally {
             consumer.close();
             startButton.setDisable(false);
+            MyLogger.logInfo("Consumer successfully closed");
         }
     }
 

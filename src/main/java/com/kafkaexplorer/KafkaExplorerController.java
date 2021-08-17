@@ -104,8 +104,8 @@ public class KafkaExplorerController implements Initializable {
                     if (selectedCluster != null) {
                         clusterConfigController.populateScreen(selectedCluster, kafkaTree);
                         // mainContent.getChildren().setAll(mainRoot);
-                        if (mainContent.getItems().size() > 1)
-                            mainContent.getItems().remove(1);
+
+                        unloadPreviousController(mainContent);
 
                         mainContent.getItems().add(mainRoot);
 
@@ -116,7 +116,9 @@ public class KafkaExplorerController implements Initializable {
 
                 } //If selectedItem is a topic, display topic browser screen
                 else if (selectedItem.getParent() != null && selectedItem.getParent().getGraphic() instanceof HBox) {
+
                     FXMLLoader topicBrowserLoader = new FXMLLoader(getClass().getResource("/topicBrowser.fxml"));
+
                     VBox mainRoot = topicBrowserLoader.load();
 
                     //Display Progress bar
@@ -129,9 +131,9 @@ public class KafkaExplorerController implements Initializable {
 
                     topicBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
                     //delete: mainContent.getChildren().setAll(mainRoot);
+                    MyLogger.logInfo("Node mainContent.getItems().size()  "+ mainContent.getItems().size());
 
-                    if (mainContent.getItems().size() > 1)
-                        mainContent.getItems().remove(1);
+                    unloadPreviousController(mainContent);
 
                     mainContent.getItems().add(mainRoot);
                 } //If selectedItem is a consumer group, display consumer group screen
@@ -148,8 +150,7 @@ public class KafkaExplorerController implements Initializable {
                     Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
                     consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
 
-                    if (mainContent.getItems().size() > 1)
-                        mainContent.getItems().remove(1);
+                    unloadPreviousController(mainContent);
 
                     mainContent.getItems().add(mainRoot);
                 }
@@ -157,6 +158,16 @@ public class KafkaExplorerController implements Initializable {
         } catch (Exception e) {
             MyLogger.logError(e);
         }
+    }
+
+    private void unloadPreviousController(SplitPane mainContent) {
+
+        if (mainContent.getItems().size() > 1) {
+            mainContent.getItems().remove(1);
+        } else {
+            MyLogger.logInfo("Unload not necessary");
+        }
+
     }
 
 

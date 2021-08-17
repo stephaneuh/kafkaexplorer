@@ -344,6 +344,7 @@ public class TopicBrowserController implements Initializable {
                 super.succeeded();
             }
 
+
             @Override
             protected void cancelled() {
                 super.cancelled();
@@ -370,6 +371,7 @@ public class TopicBrowserController implements Initializable {
         //todo Cancel the browsing task/thread instead of using boolean
         kafkaConnector.continueBrowsing = false;
         stopButton.setDisable(true);
+        MyLogger.logInfo("Stop browsing current topic");
     }
 
     public void produceMessage(MouseEvent mouseEvent) {
@@ -461,4 +463,5 @@ public class TopicBrowserController implements Initializable {
         Image image = new Image(newShortFileName);
         favImage.setImage(image);
     }
+
 }

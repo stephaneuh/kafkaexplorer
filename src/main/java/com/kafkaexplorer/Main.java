@@ -1,10 +1,12 @@
 package com.kafkaexplorer;
 
+import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.utils.HostServicesProvider;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -29,6 +31,13 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/main.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+    }
+
+    public void placeMarker(Node newNode) {
+        System.out.println("Focus changed!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
     }
 
     public static void main(String[] args) {
