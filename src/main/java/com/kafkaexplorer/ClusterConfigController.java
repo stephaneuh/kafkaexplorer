@@ -83,6 +83,7 @@ public class ClusterConfigController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 
     public void populateScreen(Cluster cluster, TreeView<String> clusterTreeView) {
@@ -225,13 +226,13 @@ public class ClusterConfigController implements Initializable {
                         TreeItem consumerNode = new TreeItem("consumer-groups");
 
                         //get consumer groups list
-                        //ArrayList<String> consumers = kafkaConnector.listConsumerGroups(cluster);
-                        //for (String consumerGroupName : consumers) {
-                        //    TreeItem consumerItem = new TreeItem(consumerGroupName);
-                        //    consumerNode.getChildren().add(consumerItem);
-                        //}
-                        //consumerNode.setExpanded(true);
-                        //child.getChildren().add(consumerNode);
+                        ArrayList<String> consumers = kafkaConnector.listConsumerGroups(cluster);
+                        for (String consumerGroupName : consumers) {
+                            TreeItem consumerItem = new TreeItem(consumerGroupName);
+                            consumerNode.getChildren().add(consumerItem);
+                        }
+                        consumerNode.setExpanded(true);
+                        child.getChildren().add(consumerNode);
 
                         child.setExpanded(true);
                         topicsChildren.setExpanded(true);
@@ -377,4 +378,5 @@ public class ClusterConfigController implements Initializable {
         if (selectedFile != null)
             this.jks.setText(selectedFile.getPath());
     }
-}
+
+    }

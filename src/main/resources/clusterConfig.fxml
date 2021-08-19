@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane fx:id="rootGridPane" minWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.ClusterConfigController">
+<GridPane fx:id="rootGridPane" minWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.ClusterConfigController">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="13.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="8.0" prefWidth="26.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="86.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="0.0" prefWidth="46.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="647.0" minWidth="10.0" prefWidth="299.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="0.0" prefWidth="358.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="647.0" minWidth="10.0" prefWidth="408.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="0.0" prefWidth="249.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="0.0" prefWidth="75.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="95.0" />
         </columnConstraints>
@@ -39,7 +32,7 @@
       <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
       <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
       <RowConstraints maxHeight="52.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="NEVER" />
             <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
             <RowConstraints maxHeight="69.0" minHeight="37.0" prefHeight="43.0" vgrow="NEVER" />
             <RowConstraints maxHeight="41.0" minHeight="18.0" prefHeight="18.0" vgrow="NEVER" />
@@ -105,5 +98,6 @@
       <Label text="Cluster Information" GridPane.columnIndex="1" GridPane.columnSpan="2" />
       <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="4" />
       <Separator prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+      <Label layoutX="492.0" layoutY="142.0" text="Ex: broker1:9092,127.0.0.1:9092" GridPane.columnIndex="5" GridPane.rowIndex="2" />
           </children>
     </GridPane>

@@ -358,20 +358,27 @@ public class KafkaLib {
         return (ArrayList<String>) groupIds;
     }
 
-    public  KafkaFuture<Map<String, ConsumerGroupDescription>> getConsumerGroupInfo(Cluster cluster, String groupName) throws ExecutionException, InterruptedException {
-
-        Map<String, List<PartitionInfo>> topics;
-        ArrayList<String> onlyTopicsName = new ArrayList<String>();
+    public  DescribeConsumerGroupsResult getConsumerGroupInfo(Cluster cluster, String groupName) throws ExecutionException, InterruptedException {
+        MyLogger.logInfo("Getting consumer group information for group: " + groupName);
 
         this.setProps(cluster);
         AdminClient kafkaClient = AdminClient.create(this.getProps());
 
-        ArrayList<String> groupList = new ArrayList<String>();
-        groupList.add(groupName);
+        DescribeConsumerGroupsResult consumerInfo = kafkaClient.describeConsumerGroups(Arrays.asList(groupName));
 
-        DescribeConsumerGroupsResult consumerInfo = kafkaClient.describeConsumerGroups(groupList);
+        return consumerInfo;
 
-        return consumerInfo.all();
+    }
+
+    public  ListConsumerGroupOffsetsResult  getConsumerGroupOffsets(Cluster cluster, String groupName) throws ExecutionException, InterruptedException {
+        MyLogger.logInfo("Getting consumer group information for group: " + groupName);
+
+        this.setProps(cluster);
+        AdminClient kafkaClient = AdminClient.create(this.getProps());
+
+        ListConsumerGroupOffsetsResult  offsetsInfo = kafkaClient.listConsumerGroupOffsets(groupName);
+
+        return offsetsInfo;
 
     }
 

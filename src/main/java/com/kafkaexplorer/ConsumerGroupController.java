@@ -11,8 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.VBox;
-import org.apache.kafka.clients.admin.Config;
-import org.apache.kafka.clients.admin.ConsumerGroupDescription;
+import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.KafkaFuture;
 import org.apache.kafka.common.PartitionInfo;
@@ -49,45 +48,46 @@ public class ConsumerGroupController implements Initializable {
             @Override
             protected Integer call() throws Exception {
 
-                TableColumn<Map, Object> topicColumn = new TableColumn<>("Topic");
-                topicColumn.setCellValueFactory(new MapValueFactory<>("Topic"));
-                topicColumn.setMaxWidth(25);
-
-                TableColumn<Map, Object> partitionColumn = new TableColumn<>("Partition");
-                partitionColumn.setCellValueFactory(new MapValueFactory<>("Partition"));
+                TableColumn<Map, Object> partitionColumn = new TableColumn<>("Topic-Partition");
+                partitionColumn.setCellValueFactory(new MapValueFactory<>("Topic-Partition"));
+                partitionColumn.setPrefWidth(400);
 
                 TableColumn<Map, Object> offsetColumn = new TableColumn<>("Offset");
                 offsetColumn.setCellValueFactory(new MapValueFactory<>("Offset"));
+                offsetColumn.setPrefWidth(200);
 
+                TableColumn<Map, Object> lagColumn = new TableColumn<>("Lag");
+                lagColumn.setCellValueFactory(new MapValueFactory<>("Lag"));
+                lagColumn.setPrefWidth(100);
 
-                partitionOffsetTable.getColumns().add(topicColumn);
+                TableColumn<Map, Object> consumerColumn = new TableColumn<>("Consumer-id");
+                consumerColumn.setCellValueFactory(new MapValueFactory<>("Consumer-id"));
+                consumerColumn.setPrefWidth(400);
+
                 partitionOffsetTable.getColumns().add(partitionColumn);
                 partitionOffsetTable.getColumns().add(offsetColumn);
+                partitionOffsetTable.getColumns().add(lagColumn);
+                partitionOffsetTable.getColumns().add(consumerColumn);
 
                 ObservableList<Map<String, Object>> items = FXCollections.<Map<String, Object>>observableArrayList();
 
                 KafkaLib kafkaConnector = new KafkaLib();
-                KafkaFuture<Map<String, ConsumerGroupDescription>> consumerGroupInfo = kafkaConnector.getConsumerGroupInfo(cluster, consumerGroupName);
-                consumerGroupInfo.get().forEach((groupName, groupDescription) ->{
-                      //     Map<String, Object> item1 = new HashMap<>();
-                           MyLogger.logDebug(">>>>>>>>" + groupName + " Size: " + groupDescription.members().size());
+                DescribeConsumerGroupsResult consumerGroupInfo = kafkaConnector.getConsumerGroupInfo(cluster, consumerGroupName);
+                ListConsumerGroupOffsetsResult listConsumerGroupOffsetsResult = kafkaConnector.getConsumerGroupOffsets(cluster, consumerGroupName);
 
+                final Map<org.apache.kafka.common.TopicPartition, OffsetAndMetadata> partitionsToOffsets = listConsumerGroupOffsetsResult.partitionsToOffsetAndMetadata().get();
 
+                partitionsToOffsets.forEach((topicPartition, offsetAndMetadata) -> {
 
+                    Map<String, Object> item1 = new HashMap<>();
+                    item1.put("Topic-Partition", topicPartition);
+                    item1.put("Offset", offsetAndMetadata.offset());
+                    item1.put("Lag", offsetAndMetadata.leaderEpoch());
+                    item1.put("Consumer-id", offsetAndMetadata.metadata());
 
-                    //   item1.put("Topic",  topicPartition.topic());
-                         //  item1.put("Partition", topicPartition.partition());
-                        //   item1.put("Offset", offsetAndMetadata.toString());
-                         //   items.add(item1);
+                    items.add(item1);
+
                 });
-
-
-
-               // for (final Map.Entry<org.apache.kafka.common.TopicPartition, OffsetAndMetadata> entry : consumerGroupInfo.get().entrySet()) {
-              //      MyLogger.logDebug("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" + entry.getKey().partition() + ">>>" + entry.getValue().offset());
-              //  }
-
-
 
                 partitionOffsetTable.getItems().addAll(items);
 
