@@ -1,6 +1,5 @@
 package com.kafkaexplorer;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
 import com.kafkaexplorer.utils.KafkaLib;
@@ -14,12 +13,10 @@ import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.VBox;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
-import org.apache.kafka.common.KafkaFuture;
-import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.TopicPartition;
 
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ConsumerGroupController implements Initializable {
     @FXML
@@ -101,6 +98,7 @@ public class ConsumerGroupController implements Initializable {
                 ListConsumerGroupOffsetsResult listConsumerGroupOffsetsResult = kafkaConnector.getConsumerGroupOffsets(cluster, consumerGroupName);
                 final Map<org.apache.kafka.common.TopicPartition, OffsetAndMetadata> partitionsToOffsets = listConsumerGroupOffsetsResult.partitionsToOffsetAndMetadata().get();
 
+                //Display active members assignations
                 members.forEach(memberDescription -> {
 
                     memberDescription.assignment().topicPartitions().forEach(topicPartition -> {
@@ -117,29 +115,35 @@ public class ConsumerGroupController implements Initializable {
                             }
 
                         });
-
-
-
-
                         items.add(item1);
                     });
 
                 });
 
-                
+                //Display topic-partitions for this consumer group without any active member
+                partitionsToOffsets.forEach((TopicPartitionFromListConsumerGroup, offsetAndMetadata) -> {
+                    //find if this topic-partition is already linked to an active member
+                    AtomicBoolean found = new AtomicBoolean(false);
+
+                    members.forEach(memberDescription -> {
+                        memberDescription.assignment().topicPartitions().forEach(TopicPartition -> {
+                                    if (TopicPartitionFromListConsumerGroup.toString().equalsIgnoreCase(TopicPartition.toString()))
+                                        found.set(true);
+                        });
+                    });
+
+                    if (!found.get()){
+                      //this partition has no active consumer
+                        Map<String, Object> item1 = new HashMap<>();
+                        item1.put("Consumer id", "--");
+                        item1.put("Host", "--");
+                        item1.put("Topic-Partition", TopicPartitionFromListConsumerGroup.toString());
+                        item1.put("Current offset", offsetAndMetadata.offset());
+                        items.add(item1);
+                    }
 
 
-
-/*                partitionsToOffsets.forEach((topicPartition, offsetAndMetadata) -> {
-                    Map<String, Object> item1 = new HashMap<>();
-                    item1.put("Topic-Partition", topicPartition);
-                    item1.put("Current offset", offsetAndMetadata.offset());
-                    item1.put("Topic End offset", "TODO");
-                    item1.put("Consumer-id", offsetAndMetadata.metadata());
-
-                    items.add(item1);
-
-                });*/
+                });
 
                 partitionOffsetTable.getItems().addAll(items);
                 return 0;
