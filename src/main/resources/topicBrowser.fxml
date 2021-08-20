@@ -141,6 +141,6 @@
                </GridPane.margin></Label>
               </children>
           </GridPane>
-      <TableView fx:id="messagesTable" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+      <TableView fx:id="messagesTable" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

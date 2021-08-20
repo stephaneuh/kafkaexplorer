@@ -66,6 +66,7 @@ public class TopicBrowserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         browsingType.getItems().addAll("from-beginning");
         browsingType.getItems().addAll("from-partition-offset");
         browsingType.setValue("from-partition-offset");

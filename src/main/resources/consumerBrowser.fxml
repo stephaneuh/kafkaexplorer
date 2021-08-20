@@ -28,6 +28,6 @@
             <TextField fx:id="consumerGroupStatus" editable="false" layoutX="116.0" layoutY="23.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
               </children>
           </GridPane>
-      <TableView fx:id="partitionOffsetTable" editable="true" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+      <TableView fx:id="partitionOffsetTable" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>
