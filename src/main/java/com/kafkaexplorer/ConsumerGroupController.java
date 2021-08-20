@@ -1,5 +1,6 @@
 package com.kafkaexplorer;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
 import com.kafkaexplorer.utils.KafkaLib;
@@ -24,6 +25,8 @@ public class ConsumerGroupController implements Initializable {
     @FXML
     public TextField consumerGroupName;
     @FXML
+    public TextField consumerGroupStatus;
+    @FXML
     public TableView partitionOffsetTable;
     @FXML
     public VBox rootNodeGroups;
@@ -35,11 +38,11 @@ public class ConsumerGroupController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        partitionOffsetTable.setVisible(true);
     }
 
     public void populateScreen(Cluster cluster, String consumerGroupName, TreeView<String> clusterTreeView) {
-
+       // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(true);
         this.consumerGroupName.setText(consumerGroupName);
         this.kafkaTreeRef = clusterTreeView;
         this.cluster = cluster;
@@ -48,81 +51,133 @@ public class ConsumerGroupController implements Initializable {
             @Override
             protected Integer call() throws Exception {
 
+                TableColumn<Map, Object> consumerColumn = new TableColumn<>("Consumer id");
+                consumerColumn.setCellValueFactory(new MapValueFactory<>("Consumer id"));
+                consumerColumn.setPrefWidth(80);
+
+                TableColumn<Map, Object> clientColumn = new TableColumn<>("Client id");
+                clientColumn.setCellValueFactory(new MapValueFactory<>("Client id"));
+                clientColumn.setPrefWidth(80);
+
+                TableColumn<Map, Object> hostColumn = new TableColumn<>("Host");
+                hostColumn.setCellValueFactory(new MapValueFactory<>("Host"));
+                hostColumn.setPrefWidth(80);
+
                 TableColumn<Map, Object> partitionColumn = new TableColumn<>("Topic-Partition");
                 partitionColumn.setCellValueFactory(new MapValueFactory<>("Topic-Partition"));
-                partitionColumn.setPrefWidth(400);
+                partitionColumn.setPrefWidth(200);
 
-                TableColumn<Map, Object> offsetColumn = new TableColumn<>("Offset");
-                offsetColumn.setCellValueFactory(new MapValueFactory<>("Offset"));
-                offsetColumn.setPrefWidth(200);
+                TableColumn<Map, Object> offsetColumn = new TableColumn<>("Current offset");
+                offsetColumn.setCellValueFactory(new MapValueFactory<>("Current offset"));
+                offsetColumn.setPrefWidth(90);
 
-                TableColumn<Map, Object> lagColumn = new TableColumn<>("Lag");
-                lagColumn.setCellValueFactory(new MapValueFactory<>("Lag"));
-                lagColumn.setPrefWidth(100);
+                TableColumn<Map, Object> endColumn = new TableColumn<>("Topic End offset");
+                endColumn.setCellValueFactory(new MapValueFactory<>("Topic End offset"));
+                endColumn.setPrefWidth(90);
 
-                TableColumn<Map, Object> consumerColumn = new TableColumn<>("Consumer-id");
-                consumerColumn.setCellValueFactory(new MapValueFactory<>("Consumer-id"));
-                consumerColumn.setPrefWidth(400);
+                TableColumn<Map, Object> lagColumn = new TableColumn<>("Consumer lag");
+                lagColumn.setCellValueFactory(new MapValueFactory<>("Consumer lag"));
+                lagColumn.setPrefWidth(80);
 
+                partitionOffsetTable.getColumns().add(consumerColumn);
+                partitionOffsetTable.getColumns().add(clientColumn);
+                partitionOffsetTable.getColumns().add(hostColumn);
                 partitionOffsetTable.getColumns().add(partitionColumn);
                 partitionOffsetTable.getColumns().add(offsetColumn);
+                partitionOffsetTable.getColumns().add(endColumn);
                 partitionOffsetTable.getColumns().add(lagColumn);
-                partitionOffsetTable.getColumns().add(consumerColumn);
+
+
 
                 ObservableList<Map<String, Object>> items = FXCollections.<Map<String, Object>>observableArrayList();
 
                 KafkaLib kafkaConnector = new KafkaLib();
-                DescribeConsumerGroupsResult consumerGroupInfo = kafkaConnector.getConsumerGroupInfo(cluster, consumerGroupName);
-                ListConsumerGroupOffsetsResult listConsumerGroupOffsetsResult = kafkaConnector.getConsumerGroupOffsets(cluster, consumerGroupName);
 
+                DescribeConsumerGroupsResult consumerGroupInfo = kafkaConnector.getConsumerGroupInfo(cluster, consumerGroupName);
+                final List<MemberDescription> members = new ArrayList<MemberDescription>(consumerGroupInfo.describedGroups().get(consumerGroupName).get().members());
+
+                if (members.isEmpty()) {
+                    consumerGroupStatus.setText("Not Active");
+                } else {
+                    consumerGroupStatus.setText("Active");
+                }
+
+                //Get offsets for this consumer group
+                ListConsumerGroupOffsetsResult listConsumerGroupOffsetsResult = kafkaConnector.getConsumerGroupOffsets(cluster, consumerGroupName);
                 final Map<org.apache.kafka.common.TopicPartition, OffsetAndMetadata> partitionsToOffsets = listConsumerGroupOffsetsResult.partitionsToOffsetAndMetadata().get();
 
-                partitionsToOffsets.forEach((topicPartition, offsetAndMetadata) -> {
+                members.forEach(memberDescription -> {
 
+                    memberDescription.assignment().topicPartitions().forEach(topicPartition -> {
+
+                        Map<String, Object> item1 = new HashMap<>();
+                        item1.put("Consumer id", memberDescription.consumerId());
+                        item1.put("Client id", memberDescription.clientId());
+                        item1.put("Host", memberDescription.host());
+                        item1.put("Topic-Partition", topicPartition.topic());
+
+                        //search for consumerId and topic-partition in partitionsToOffsets
+
+
+
+
+
+                        items.add(item1);
+                    });
+
+                });
+
+                
+
+
+
+/*                partitionsToOffsets.forEach((topicPartition, offsetAndMetadata) -> {
                     Map<String, Object> item1 = new HashMap<>();
                     item1.put("Topic-Partition", topicPartition);
-                    item1.put("Offset", offsetAndMetadata.offset());
-                    item1.put("Lag", offsetAndMetadata.leaderEpoch());
+                    item1.put("Current offset", offsetAndMetadata.offset());
+                    item1.put("Topic End offset", "TODO");
                     item1.put("Consumer-id", offsetAndMetadata.metadata());
 
                     items.add(item1);
 
-                });
+                });*/
 
                 partitionOffsetTable.getItems().addAll(items);
-
                 return 0;
             }
 
             @Override
             protected void succeeded() {
-                ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+                //Workaround: force focus on an element of the page in order to refresh the tableview content
+                consumerGroupStatus.requestFocus();
+                consumerGroupStatus.deselect();
                 super.succeeded();
+                ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+                MyLogger.logInfo("Task succeeded");
             }
 
             @Override
             protected void cancelled() {
-                ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+              // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
                 super.cancelled();
+                MyLogger.logInfo("Task cancelled");
             }
 
             @Override
             protected void failed() {
-                ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+              // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
                 super.failed();
                 //show an alert Dialog
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setHeaderText("Error!");
                 a.setContentText(this.getException().getMessage());
                 a.show();
+                MyLogger.logInfo("Task failed");
             }
         };
 
         Thread th = new Thread(task);
         th.setDaemon(true);
         th.start();
-
-
-
     }
 }

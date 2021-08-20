@@ -378,6 +378,8 @@ public class KafkaLib {
 
         ListConsumerGroupOffsetsResult  offsetsInfo = kafkaClient.listConsumerGroupOffsets(groupName);
 
+        MyLogger.logInfo("Getting consumer group information for group: " + groupName + " - DONE");
+
         return offsetsInfo;
 
     }
