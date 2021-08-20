@@ -55,10 +55,6 @@ public class ConsumerGroupController implements Initializable {
                 consumerColumn.setCellValueFactory(new MapValueFactory<>("Consumer id"));
                 consumerColumn.setPrefWidth(80);
 
-                TableColumn<Map, Object> clientColumn = new TableColumn<>("Client id");
-                clientColumn.setCellValueFactory(new MapValueFactory<>("Client id"));
-                clientColumn.setPrefWidth(80);
-
                 TableColumn<Map, Object> hostColumn = new TableColumn<>("Host");
                 hostColumn.setCellValueFactory(new MapValueFactory<>("Host"));
                 hostColumn.setPrefWidth(80);
@@ -80,7 +76,6 @@ public class ConsumerGroupController implements Initializable {
                 lagColumn.setPrefWidth(80);
 
                 partitionOffsetTable.getColumns().add(consumerColumn);
-                partitionOffsetTable.getColumns().add(clientColumn);
                 partitionOffsetTable.getColumns().add(hostColumn);
                 partitionOffsetTable.getColumns().add(partitionColumn);
                 partitionOffsetTable.getColumns().add(offsetColumn);
@@ -112,12 +107,16 @@ public class ConsumerGroupController implements Initializable {
 
                         Map<String, Object> item1 = new HashMap<>();
                         item1.put("Consumer id", memberDescription.consumerId());
-                        item1.put("Client id", memberDescription.clientId());
                         item1.put("Host", memberDescription.host());
-                        item1.put("Topic-Partition", topicPartition.topic());
+                        item1.put("Topic-Partition", topicPartition);
 
                         //search for consumerId and topic-partition in partitionsToOffsets
+                        partitionsToOffsets.forEach((topicPartition1, offsetAndMetadata) -> {
+                            if (topicPartition1.toString().equalsIgnoreCase(topicPartition.toString())){
+                                item1.put("Current offset", offsetAndMetadata.offset());
+                            }
 
+                        });
 
 
 
