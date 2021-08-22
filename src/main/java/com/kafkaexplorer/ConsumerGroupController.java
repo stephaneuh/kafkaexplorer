@@ -17,6 +17,8 @@ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ConsumerGroupController implements Initializable {
     @FXML
@@ -98,23 +100,35 @@ public class ConsumerGroupController implements Initializable {
                 ListConsumerGroupOffsetsResult listConsumerGroupOffsetsResult = kafkaConnector.getConsumerGroupOffsets(cluster, consumerGroupName);
                 final Map<org.apache.kafka.common.TopicPartition, OffsetAndMetadata> partitionsToOffsets = listConsumerGroupOffsetsResult.partitionsToOffsetAndMetadata().get();
 
+
                 //Display active members assignations
                 members.forEach(memberDescription -> {
 
                     memberDescription.assignment().topicPartitions().forEach(topicPartition -> {
-
                         Map<String, Object> item1 = new HashMap<>();
                         item1.put("Consumer id", memberDescription.consumerId());
                         item1.put("Host", memberDescription.host());
                         item1.put("Topic-Partition", topicPartition);
 
+                        //get endoffset of this partition:
+                        Long endoffsetMap = kafkaConnector.getTopicEndOffset(cluster, topicPartition);
+                        item1.put("Topic End offset", endoffsetMap);
+
+
                         //search for consumerId and topic-partition in partitionsToOffsets
+                        AtomicLong currentOffset = new AtomicLong(-1L);
                         partitionsToOffsets.forEach((topicPartition1, offsetAndMetadata) -> {
                             if (topicPartition1.toString().equalsIgnoreCase(topicPartition.toString())){
-                                item1.put("Current offset", offsetAndMetadata.offset());
+                                currentOffset.set(offsetAndMetadata.offset());
                             }
 
                         });
+
+                        item1.put("Current offset", currentOffset);
+
+                        //compute Consumer lag
+                        item1.put("Consumer lag", endoffsetMap - currentOffset.get());
+
                         items.add(item1);
                     });
 

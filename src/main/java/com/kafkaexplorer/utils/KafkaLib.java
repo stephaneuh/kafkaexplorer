@@ -3,24 +3,14 @@ package com.kafkaexplorer.utils;
 import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
-import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
-import io.confluent.kafka.schemaregistry.client.rest.entities.Schema;
 import io.confluent.kafka.schemaregistry.client.rest.entities.SchemaString;
 import io.confluent.kafka.schemaregistry.client.rest.entities.SubjectVersion;
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
-import io.confluent.kafka.schemaregistry.client.security.basicauth.BasicAuthCredentialProvider;
-import io.confluent.kafka.schemaregistry.client.security.basicauth.BasicAuthCredentialProviderFactory;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
-import io.confluent.kafka.serializers.KafkaJsonDeserializer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import io.confluent.kafka.schemaregistry.avro.AvroSchema;
 import org.apache.avro.generic.GenericData;
-import org.apache.avro.generic.GenericDatumReader;
-import org.apache.avro.generic.GenericDatumWriter;
-import org.apache.avro.io.*;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.producer.*;
@@ -28,17 +18,12 @@ import org.apache.kafka.common.KafkaFuture;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.ConfigResource;
-import org.apache.kafka.common.errors.SerializationException;
 import io.confluent.kafka.schemaregistry.client.rest.RestService;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -368,6 +353,16 @@ public class KafkaLib {
 
         return consumerInfo;
 
+    }
+
+    public Long getTopicEndOffset(Cluster cluster, TopicPartition topicPartition ) {
+        MyLogger.logInfo("Getting end offset of topic-partition: " + topicPartition);
+
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(this.getProps());
+        List<TopicPartition> topicPartitions = new ArrayList<>();
+        topicPartitions.add(topicPartition);
+
+        return consumer.endOffsets(topicPartitions).get(topicPartition);
     }
 
     public  ListConsumerGroupOffsetsResult  getConsumerGroupOffsets(Cluster cluster, String groupName) throws ExecutionException, InterruptedException {
