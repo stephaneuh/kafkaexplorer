@@ -56,8 +56,8 @@ public class KafkaLib {
         this.props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='" + cluster.getApiKey() + "' password='" + cluster.getApiSecret() + "';");
         this.props.put("sasl.mechanism", cluster.getMechanism());
 
-        this.props.put("default.api.timeout.ms", 5000);
-        this.props.put("request.timeout.ms", 5000);
+        this.props.put("default.api.timeout.ms", 15000);
+        this.props.put("request.timeout.ms", 15000);
         //this.props.put("session.timeout.ms", 5000);
         this.props.put("auto.commit.interval.ms", "1000");
 
