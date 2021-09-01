@@ -240,6 +240,11 @@ public class ClusterConfigController implements Initializable {
                         consumerNode.setExpanded(true);
                         child.getChildren().add(consumerNode);
 
+                        //Create a SubTreeItem maned "ksqldb-cli"
+                        TreeItem ksqlNode = new TreeItem("ksqldb-cli");
+                        ksqlNode.setExpanded(true);
+                        child.getChildren().add(ksqlNode);
+
                         child.setExpanded(true);
                         topicsChildren.setExpanded(true);
 

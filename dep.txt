@@ -1,0 +1,73 @@
+
+
+
+
+
+
+
+
+<!--
+                                             <option>--add-opens</option><option>javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</option>
+                                             <option>--add-opens</option><option>javafx.graphics/javafx.scene.Node=ALL-UNNAMED</option>
+                                             <option>--add-opens</option><option>javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</option>
+                                             <option>--add-opens</option><option>javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</option>
+                                             <option>--add-opens</option><option>javafx.base/com.sun.javafx.binding=ALL-UNNAMED</option>
+                                             <option>--add-opens</option><option>javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</option>
+                                             <option>--add-opens</option><option>javafx.base/com.sun.javafx.event=ALL-UNNAMED</option>
+                                             <option>--add-exports</option><option>javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</option>
+                                             <option>--add-exports</option><option>javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</option>
+                                             <option>--add-exports</option><option>javafx.base/com.sun.javafx.binding=ALL-UNNAMED</option>
+                                             <option>--add-exports</option><option>javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</option>
+                                             <option>--add-exports</option><option>javafx.base/com.sun.javafx.event=ALL-UNNAMED</option>
+
+
+
+
+                                             <option>--add-modules</option>
+                                             <option>java.base,java.management,java.security.jgss,javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.web</option>
+
+                                             <option>--add-reads</option>
+                                             <option>javafx.graphics=ALL-UNNAMED </option>
+
+                                             <option>--add-opens</option>
+                                             <option>javafx.controls/com.sun.javafx.charts=ALL-UNNAMED </option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.graphics/com.sun.javafx.css=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.graphics/javafx.css=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.base/com.sun.javafx.runtime=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.base/com.sun.javafx.binding=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.base/com.sun.javafx.event=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</option>
+                                             <option>--add-opens</option>
+                                             <option>javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</option>
+
+
+                                             <option>--add-exports</option>
+                                             <option>javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED</option>
+                                             <option>--add-exports</option>
+                                             <option>javafx.graphics/com.sun.prism=ALL-UNNAMED</option>
+                                             <option>--add-exports</option>
+                                             <option>javafx.graphics/com.sun.prism.impl=ALL-UNNAMED</option>
+                                             <option>--add-exports</option>
+                                             <option>javafx.graphics/com.sun.prism.impl.shape=ALL-UNNAMED</option>
+                                             <option>--add-exports</option>
+                                             <option>javafx.graphics/com.sun.prism=ALL-UNNAMED</option>
+                                             <option>--add-exports</option>
+                                             <option>javafx.graphics/com.sun.prism.paint=ALL-UNNAMED</option>
+
+
+
+                                             -->

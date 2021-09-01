@@ -11,9 +11,24 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <pty4j.version>0.8.6</pty4j.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
     <repositories>
+        <repository>
+            <id>bintray-jetbrains-pty4j</id>
+            <name>bintray</name>
+            <url>https://jetbrains.bintray.com/pty4j</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+        <repository>
+            <id>pty4j-releases</id>
+            <url>https://github.com/javaterminal/pty4j/raw/master/releases</url>
+        </repository>
         <repository>
             <id>gluon-nexus-repository</id>
             <url>http://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
@@ -38,6 +53,11 @@
             <version>1.7.25</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>15</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -111,6 +131,12 @@
             <artifactId>kafka-schema-registry-client</artifactId>
             <version>6.1.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>15</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer -->
         <dependency>
             <groupId>io.confluent</groupId>
@@ -122,7 +148,16 @@
             <artifactId>kafka-json-serializer</artifactId>
             <version>6.1.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jetbrains.pty4j</groupId>
+            <artifactId>pty4j</artifactId>
+            <version>${pty4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>

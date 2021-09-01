@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -149,6 +150,23 @@ public class KafkaExplorerController implements Initializable {
                     //Get cluster info from cluster name
                     Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
                     consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
+
+                    unloadPreviousController(mainContent);
+
+                    mainContent.getItems().add(mainRoot);
+                }
+                else if (selectedItem != null && selectedItem.getValue() == "ksqldb-cli") {
+                    FXMLLoader ksqlDBcli = new FXMLLoader(getClass().getResource("/ksqlDBcli.fxml"));
+                    AnchorPane mainRoot = ksqlDBcli.load();
+
+                    //Display Progress bar
+                    progBar2.setVisible(true);
+
+                    //ConsumerGroupController consumerGroupBrowserController = ksqlDBcli.getController();
+
+                    //Get cluster info from cluster name
+                    //Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
+                    //consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
 
                     unloadPreviousController(mainContent);
 
