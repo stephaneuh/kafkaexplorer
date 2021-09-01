@@ -72,7 +72,3 @@ Simply execute:
 ```
 mvn javafx:run
 ```
-
-## Based on the following OpenSource Projects
-
-- TerminalFX https://github.com/javaterminal/TerminalFX 
