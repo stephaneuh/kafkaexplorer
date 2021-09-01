@@ -28,6 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import org.apache.kafka.common.errors.SslAuthenticationException;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -152,12 +153,17 @@ public class ClusterConfigController implements Initializable {
                 KafkaLib kafkaConnector = new KafkaLib();
                 try {
                     kafkaConnector.connect(cluster);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     MyLogger.logError(e);
                 }
-                ArrayList<String> topics = kafkaConnector.listTopics(cluster);
-                cluster.setTopicList(topics);
 
+                MyLogger.logInfo("Connected to cluster");
+
+                ArrayList<String> topics  = kafkaConnector.listTopics(cluster);
+
+                cluster.setTopicList(topics);
+                MyLogger.logInfo("List of topics received");
                 //Build and expand kafkaTree
                 for (TreeItem child : kafkaTreeRef.getRoot().getChildren()) {
                     //Locate cluster to update

@@ -19,6 +19,7 @@ import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.ConfigResource;
 import io.confluent.kafka.schemaregistry.client.rest.RestService;
+import org.apache.kafka.common.config.SslConfigs;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,6 +72,12 @@ public class KafkaLib {
         this.props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         this.props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
 
+        //ssl config
+        this.props.put( SslConfigs.DEFAULT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM,"");
+        this.props.put(SslConfigs.DEFAULT_SSL_ENABLED_PROTOCOLS,"TLSv1.2");
+        this.props.put(SslConfigs.SSL_CIPHER_SUITES_CONFIG,"");
+
+
         //set SSL Truststore if any provided in the config.yaml
         if (cluster.getTrustStoreJKS() != "") {
             this.props.put("ssl.truststore.location", cluster.getTrustStoreJKS());
@@ -79,7 +86,6 @@ public class KafkaLib {
             //Set SSL at JVM level to be used by the Schema Registry SSL Rest Clien
             System.setProperty("javax.net.ssl.trustStore",cluster.getTrustStoreJKS());
             System.setProperty("javax.net.ssl.trustStorePassword",cluster.getTrustStoreJKSPwd());
-
         }
 
     }
@@ -94,12 +100,14 @@ public class KafkaLib {
         return "OK";
     }
 
-    public ArrayList<String> listTopics(Cluster cluster){
+    public ArrayList<String> listTopics(Cluster cluster) {
 
         Map<String, List<PartitionInfo>> topics;
         ArrayList<String> onlyTopicsName = new ArrayList<String>();
 
         this.setProps(cluster);
+
+        MyLogger.logInfo("API KEY:" + cluster.getApiKey() + " SECRET" + cluster.getApiSecret());
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(this.getProps());
         topics = consumer.listTopics();

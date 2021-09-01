@@ -1,0 +1,539 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/Users/riss003/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.14.0/log4j-slf4j-impl-2.14.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/Users/riss003/.m2/repository/org/slf4j/slf4j-simple/1.7.22/slf4j-simple-1.7.22.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+javax.net.ssl|DEBUG|1C|Thread-5|2021-09-01 13:52:10.376 EDT|SSLContextImpl.java:423|System property jdk.tls.client.cipherSuites is set to 'null'
+javax.net.ssl|DEBUG|1C|Thread-5|2021-09-01 13:52:10.379 EDT|SSLContextImpl.java:423|System property jdk.tls.server.cipherSuites is set to 'null'
+javax.net.ssl|DEBUG|1C|Thread-5|2021-09-01 13:52:10.418 EDT|X509TrustManagerImpl.java:82|adding as trusted certificates (
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "2E 69 7D 22 75 01 C5 99 42 76 D1 B7 2F D4 6B 3B",
+    "signature algorithm": "SHA256withRSA",
+    "issuer"             : "CN=BNC - NBC Root CA G2, O=Banque Nationale du Canada, OU=SeRTI - Autorite de certification, L=Montreal, ST=Quebec, C=CA",
+    "not before"         : "2015-05-04 13:32:28.000 EDT",
+    "not  after"         : "2035-05-04 13:42:10.000 EDT",
+    "subject"            : "CN=BNC - NBC Root CA G2, O=Banque Nationale du Canada, OU=SeRTI - Autorite de certification, L=Montreal, ST=Quebec, C=CA",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 1.3.6.1.4.1.311.21.1 Criticality=false
+      },
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.32 Criticality=false
+        CertificatePolicies [
+          [CertificatePolicyId: [1.3.6.1.4.1.7667.509.3.1]
+        [PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.1
+          qualifier: 0000: 16 1E 68 74 74 70 3A 2F   2F 70 6B 69 2E 62 6E 63  ..http://pki.bnc
+        0010: 2E 63 61 2F 70 6B 69 2F   63 70 73 2E 74 78 74 00  .ca/pki/cps.txt.
+        
+        ], PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.2
+          qualifier: 0000: 30 81 80 1E 7E 00 43 00   65 00 72 00 74 00 69 00  0.....C.e.r.t.i.
+        0010: 66 00 69 00 63 00 61 00   74 00 69 00 6F 00 6E 00  f.i.c.a.t.i.o.n.
+        0020: 20 00 50 00 72 00 61 00   63 00 74 00 69 00 63 00   .P.r.a.c.t.i.c.
+        0030: 65 00 20 00 53 00 74 00   61 00 74 00 65 00 6D 00  e. .S.t.a.t.e.m.
+        0040: 65 00 6E 00 74 00 20 00   66 00 6F 00 72 00 20 00  e.n.t. .f.o.r. .
+        0050: 42 00 61 00 6E 00 71 00   75 00 65 00 20 00 4E 00  B.a.n.q.u.e. .N.
+        0060: 61 00 74 00 69 00 6F 00   6E 00 61 00 6C 00 65 00  a.t.i.o.n.a.l.e.
+        0070: 20 00 64 00 75 00 20 00   43 00 61 00 6E 00 61 00   .d.u. .C.a.n.a.
+        0080: 64 00 61                                           d.a
+        
+        ]]  ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=false
+        KeyUsage [
+          DigitalSignature
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: 42 53 8B 7D 0B 9E 18 40   98 7E A8 87 B4 72 C7 45  BS.....@.....r.E
+        0010: DD 6A D5 81                                        .j..
+        ]
+        ]
+      }
+    ]},
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "44 AF B0 80 D6 A3 27 BA 89 30 39 86 2E F8 40 6B",
+    "signature algorithm": "SHA1withRSA",
+    "issuer"             : "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+    "not before"         : "2000-09-30 17:12:19.000 EDT",
+    "not  after"         : "2021-09-30 10:01:15.000 EDT",
+    "subject"            : "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=true
+        KeyUsage [
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: C4 A7 B1 A4 7B 2C 71 FA   DB E1 4B 90 75 FF C4 15  .....,q...K.u...
+        0010: 60 85 89 10                                        `...
+        ]
+        ]
+      }
+    ]},
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "00 82 10 CF B0 D2 40 E3 59 44 63 E0 BB 63 82 8B 00",
+    "signature algorithm": "SHA256withRSA",
+    "issuer"             : "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+    "not before"         : "2015-06-04 07:04:38.000 EDT",
+    "not  after"         : "2035-06-04 07:04:38.000 EDT",
+    "subject"            : "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=true
+        KeyUsage [
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: 79 B4 59 E6 7B B6 E5 E4   01 73 80 08 88 C8 1A 58  y.Y......s.....X
+        0010: F6 E9 9B 6E                                        ...n
+        ]
+        ]
+      }
+    ]},
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "71 00 00 00 04 DC 6B 39 5E 16 93 EA 14 00 00 00 00 00 04",
+    "signature algorithm": "SHA256withRSA",
+    "issuer"             : "CN=BNC - NBC Root CA G2, O=Banque Nationale du Canada, OU=SeRTI - Autorite de certification, L=Montreal, ST=Quebec, C=CA",
+    "not before"         : "2015-05-22 10:30:17.000 EDT",
+    "not  after"         : "2025-05-22 10:40:17.000 EDT",
+    "subject"            : "CN=BNC - NBC SSL CA G2, OU=SeRTI - Autorite de certification, O=Banque Nationale du Canada, L=Montreal, ST=Quebec, C=CA",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 1.3.6.1.4.1.311.20.2 Criticality=false
+      },
+      {
+        ObjectId: 1.3.6.1.4.1.311.21.1 Criticality=false
+      },
+      {
+        ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+        AuthorityInfoAccess [
+          [
+           accessMethod: caIssuers
+           accessLocation: URIName: http://pki.bnc.ca/CertData/BNC%20-%20NBC%20Root%20CA%20G2.crt
+        ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.35 Criticality=false
+        AuthorityKeyIdentifier [
+        KeyIdentifier [
+        0000: 42 53 8B 7D 0B 9E 18 40   98 7E A8 87 B4 72 C7 45  BS.....@.....r.E
+        0010: DD 6A D5 81                                        .j..
+        ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.31 Criticality=false
+        CRLDistributionPoints [
+          [DistributionPoint:
+             [URIName: http://pki.bnc.ca/Certdata/BNC%20-%20NBC%20Root%20CA%20G2.crl]
+        ]]
+      },
+      {
+        ObjectId: 2.5.29.32 Criticality=false
+        CertificatePolicies [
+          [CertificatePolicyId: [1.3.6.1.4.1.7667.509.3.1]
+        [PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.1
+          qualifier: 0000: 16 1E 68 74 74 70 3A 2F   2F 70 6B 69 2E 62 6E 63  ..http://pki.bnc
+        0010: 2E 63 61 2F 70 6B 69 2F   63 70 73 2E 74 78 74 00  .ca/pki/cps.txt.
+        
+        ], PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.2
+          qualifier: 0000: 30 81 80 1E 7E 00 43 00   65 00 72 00 74 00 69 00  0.....C.e.r.t.i.
+        0010: 66 00 69 00 63 00 61 00   74 00 69 00 6F 00 6E 00  f.i.c.a.t.i.o.n.
+        0020: 20 00 50 00 72 00 61 00   63 00 74 00 69 00 63 00   .P.r.a.c.t.i.c.
+        0030: 65 00 20 00 53 00 74 00   61 00 74 00 65 00 6D 00  e. .S.t.a.t.e.m.
+        0040: 65 00 6E 00 74 00 20 00   66 00 6F 00 72 00 20 00  e.n.t. .f.o.r. .
+        0050: 42 00 61 00 6E 00 71 00   75 00 65 00 20 00 4E 00  B.a.n.q.u.e. .N.
+        0060: 61 00 74 00 69 00 6F 00   6E 00 61 00 6C 00 65 00  a.t.i.o.n.a.l.e.
+        0070: 20 00 64 00 75 00 20 00   43 00 61 00 6E 00 61 00   .d.u. .C.a.n.a.
+        0080: 64 00 61                                           d.a
+        
+        ]]  ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=false
+        KeyUsage [
+          DigitalSignature
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: 1C D8 28 F9 E6 88 21 CC   CA 56 4E 94 3F 3A 65 79  ..(...!..VN.?:ey
+        0010: A4 B7 17 9E                                        ....
+        ]
+        ]
+      }
+    ]}
+)
+javax.net.ssl|ALL|1C|Thread-5|2021-09-01 13:52:10.419 EDT|SSLContextImpl.java:115|trigger seeding of SecureRandom
+javax.net.ssl|ALL|1C|Thread-5|2021-09-01 13:52:18.424 EDT|SSLContextImpl.java:119|done seeding of SecureRandom
+javax.net.ssl|DEBUG|1C|Thread-5|2021-09-01 13:52:18.487 EDT|X509TrustManagerImpl.java:82|adding as trusted certificates (
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "2E 69 7D 22 75 01 C5 99 42 76 D1 B7 2F D4 6B 3B",
+    "signature algorithm": "SHA256withRSA",
+    "issuer"             : "CN=BNC - NBC Root CA G2, O=Banque Nationale du Canada, OU=SeRTI - Autorite de certification, L=Montreal, ST=Quebec, C=CA",
+    "not before"         : "2015-05-04 13:32:28.000 EDT",
+    "not  after"         : "2035-05-04 13:42:10.000 EDT",
+    "subject"            : "CN=BNC - NBC Root CA G2, O=Banque Nationale du Canada, OU=SeRTI - Autorite de certification, L=Montreal, ST=Quebec, C=CA",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 1.3.6.1.4.1.311.21.1 Criticality=false
+      },
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.32 Criticality=false
+        CertificatePolicies [
+          [CertificatePolicyId: [1.3.6.1.4.1.7667.509.3.1]
+        [PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.1
+          qualifier: 0000: 16 1E 68 74 74 70 3A 2F   2F 70 6B 69 2E 62 6E 63  ..http://pki.bnc
+        0010: 2E 63 61 2F 70 6B 69 2F   63 70 73 2E 74 78 74 00  .ca/pki/cps.txt.
+        
+        ], PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.2
+          qualifier: 0000: 30 81 80 1E 7E 00 43 00   65 00 72 00 74 00 69 00  0.....C.e.r.t.i.
+        0010: 66 00 69 00 63 00 61 00   74 00 69 00 6F 00 6E 00  f.i.c.a.t.i.o.n.
+        0020: 20 00 50 00 72 00 61 00   63 00 74 00 69 00 63 00   .P.r.a.c.t.i.c.
+        0030: 65 00 20 00 53 00 74 00   61 00 74 00 65 00 6D 00  e. .S.t.a.t.e.m.
+        0040: 65 00 6E 00 74 00 20 00   66 00 6F 00 72 00 20 00  e.n.t. .f.o.r. .
+        0050: 42 00 61 00 6E 00 71 00   75 00 65 00 20 00 4E 00  B.a.n.q.u.e. .N.
+        0060: 61 00 74 00 69 00 6F 00   6E 00 61 00 6C 00 65 00  a.t.i.o.n.a.l.e.
+        0070: 20 00 64 00 75 00 20 00   43 00 61 00 6E 00 61 00   .d.u. .C.a.n.a.
+        0080: 64 00 61                                           d.a
+        
+        ]]  ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=false
+        KeyUsage [
+          DigitalSignature
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: 42 53 8B 7D 0B 9E 18 40   98 7E A8 87 B4 72 C7 45  BS.....@.....r.E
+        0010: DD 6A D5 81                                        .j..
+        ]
+        ]
+      }
+    ]},
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "44 AF B0 80 D6 A3 27 BA 89 30 39 86 2E F8 40 6B",
+    "signature algorithm": "SHA1withRSA",
+    "issuer"             : "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+    "not before"         : "2000-09-30 17:12:19.000 EDT",
+    "not  after"         : "2021-09-30 10:01:15.000 EDT",
+    "subject"            : "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=true
+        KeyUsage [
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: C4 A7 B1 A4 7B 2C 71 FA   DB E1 4B 90 75 FF C4 15  .....,q...K.u...
+        0010: 60 85 89 10                                        `...
+        ]
+        ]
+      }
+    ]},
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "00 82 10 CF B0 D2 40 E3 59 44 63 E0 BB 63 82 8B 00",
+    "signature algorithm": "SHA256withRSA",
+    "issuer"             : "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+    "not before"         : "2015-06-04 07:04:38.000 EDT",
+    "not  after"         : "2035-06-04 07:04:38.000 EDT",
+    "subject"            : "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=true
+        KeyUsage [
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: 79 B4 59 E6 7B B6 E5 E4   01 73 80 08 88 C8 1A 58  y.Y......s.....X
+        0010: F6 E9 9B 6E                                        ...n
+        ]
+        ]
+      }
+    ]},
+  "certificate" : {
+    "version"            : "v3",
+    "serial number"      : "71 00 00 00 04 DC 6B 39 5E 16 93 EA 14 00 00 00 00 00 04",
+    "signature algorithm": "SHA256withRSA",
+    "issuer"             : "CN=BNC - NBC Root CA G2, O=Banque Nationale du Canada, OU=SeRTI - Autorite de certification, L=Montreal, ST=Quebec, C=CA",
+    "not before"         : "2015-05-22 10:30:17.000 EDT",
+    "not  after"         : "2025-05-22 10:40:17.000 EDT",
+    "subject"            : "CN=BNC - NBC SSL CA G2, OU=SeRTI - Autorite de certification, O=Banque Nationale du Canada, L=Montreal, ST=Quebec, C=CA",
+    "subject public key" : "RSA",
+    "extensions"         : [
+      {
+        ObjectId: 1.3.6.1.4.1.311.20.2 Criticality=false
+      },
+      {
+        ObjectId: 1.3.6.1.4.1.311.21.1 Criticality=false
+      },
+      {
+        ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+        AuthorityInfoAccess [
+          [
+           accessMethod: caIssuers
+           accessLocation: URIName: http://pki.bnc.ca/CertData/BNC%20-%20NBC%20Root%20CA%20G2.crt
+        ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.35 Criticality=false
+        AuthorityKeyIdentifier [
+        KeyIdentifier [
+        0000: 42 53 8B 7D 0B 9E 18 40   98 7E A8 87 B4 72 C7 45  BS.....@.....r.E
+        0010: DD 6A D5 81                                        .j..
+        ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.19 Criticality=true
+        BasicConstraints:[
+          CA:true
+          PathLen:2147483647
+        ]
+      },
+      {
+        ObjectId: 2.5.29.31 Criticality=false
+        CRLDistributionPoints [
+          [DistributionPoint:
+             [URIName: http://pki.bnc.ca/Certdata/BNC%20-%20NBC%20Root%20CA%20G2.crl]
+        ]]
+      },
+      {
+        ObjectId: 2.5.29.32 Criticality=false
+        CertificatePolicies [
+          [CertificatePolicyId: [1.3.6.1.4.1.7667.509.3.1]
+        [PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.1
+          qualifier: 0000: 16 1E 68 74 74 70 3A 2F   2F 70 6B 69 2E 62 6E 63  ..http://pki.bnc
+        0010: 2E 63 61 2F 70 6B 69 2F   63 70 73 2E 74 78 74 00  .ca/pki/cps.txt.
+        
+        ], PolicyQualifierInfo: [
+          qualifierID: 1.3.6.1.5.5.7.2.2
+          qualifier: 0000: 30 81 80 1E 7E 00 43 00   65 00 72 00 74 00 69 00  0.....C.e.r.t.i.
+        0010: 66 00 69 00 63 00 61 00   74 00 69 00 6F 00 6E 00  f.i.c.a.t.i.o.n.
+        0020: 20 00 50 00 72 00 61 00   63 00 74 00 69 00 63 00   .P.r.a.c.t.i.c.
+        0030: 65 00 20 00 53 00 74 00   61 00 74 00 65 00 6D 00  e. .S.t.a.t.e.m.
+        0040: 65 00 6E 00 74 00 20 00   66 00 6F 00 72 00 20 00  e.n.t. .f.o.r. .
+        0050: 42 00 61 00 6E 00 71 00   75 00 65 00 20 00 4E 00  B.a.n.q.u.e. .N.
+        0060: 61 00 74 00 69 00 6F 00   6E 00 61 00 6C 00 65 00  a.t.i.o.n.a.l.e.
+        0070: 20 00 64 00 75 00 20 00   43 00 61 00 6E 00 61 00   .d.u. .C.a.n.a.
+        0080: 64 00 61                                           d.a
+        
+        ]]  ]
+        ]
+      },
+      {
+        ObjectId: 2.5.29.15 Criticality=false
+        KeyUsage [
+          DigitalSignature
+          Key_CertSign
+          Crl_Sign
+        ]
+      },
+      {
+        ObjectId: 2.5.29.14 Criticality=false
+        SubjectKeyIdentifier [
+        KeyIdentifier [
+        0000: 1C D8 28 F9 E6 88 21 CC   CA 56 4E 94 3F 3A 65 79  ..(...!..VN.?:ey
+        0010: A4 B7 17 9E                                        ....
+        ]
+        ]
+      }
+    ]}
+)
+javax.net.ssl|ALL|1C|Thread-5|2021-09-01 13:52:18.487 EDT|SSLContextImpl.java:115|trigger seeding of SecureRandom
+javax.net.ssl|ALL|1C|Thread-5|2021-09-01 13:52:18.487 EDT|SSLContextImpl.java:119|done seeding of SecureRandom
+javax.net.ssl|DEBUG|1C|Thread-5|2021-09-01 13:52:18.651 EDT|SSLConfiguration.java:458|System property jdk.tls.server.SignatureSchemes is set to 'null'
+javax.net.ssl|WARNING|1C|Thread-5|2021-09-01 13:52:18.652 EDT|SignatureScheme.java:282|Signature algorithm, ed25519, not supported by JSSE
+javax.net.ssl|WARNING|1C|Thread-5|2021-09-01 13:52:18.652 EDT|SignatureScheme.java:282|Signature algorithm, ed448, not supported by JSSE
+javax.net.ssl|WARNING|1C|Thread-5|2021-09-01 13:52:18.653 EDT|NamedGroup.java:297|No AlgorithmParameters for x25519 (
+"throwable" : {
+  java.security.NoSuchAlgorithmException: Algorithm x25519 not available
+  	at java.base/javax.crypto.KeyAgreement.getInstance(KeyAgreement.java:192)
+  	at java.base/sun.security.ssl.NamedGroup.<init>(NamedGroup.java:286)
+  	at java.base/sun.security.ssl.NamedGroup.<clinit>(NamedGroup.java:184)
+  	at java.base/sun.security.ssl.SignatureScheme.<clinit>(SignatureScheme.java:59)
+  	at java.base/sun.security.ssl.SSLSessionImpl.<clinit>(SSLSessionImpl.java:817)
+  	at java.base/sun.security.ssl.TransportContext.<init>(TransportContext.java:150)
+  	at java.base/sun.security.ssl.TransportContext.<init>(TransportContext.java:109)
+  	at java.base/sun.security.ssl.SSLEngineImpl.<init>(SSLEngineImpl.java:84)
+  	at java.base/sun.security.ssl.SSLContextImpl$AbstractTLSContext.createSSLEngineImpl(SSLContextImpl.java:589)
+  	at java.base/sun.security.ssl.SSLContextImpl.engineCreateSSLEngine(SSLContextImpl.java:183)
+  	at java.base/javax.net.ssl.SSLContext.createSSLEngine(SSLContext.java:412)
+  	at org.apache.kafka.common.security.ssl.DefaultSslEngineFactory.createSslEngine(DefaultSslEngineFactory.java:187)
+  	at org.apache.kafka.common.security.ssl.DefaultSslEngineFactory.createClientSslEngine(DefaultSslEngineFactory.java:93)
+  	at org.apache.kafka.common.security.ssl.SslFactory.createSslEngine(SslFactory.java:193)
+  	at org.apache.kafka.common.network.SaslChannelBuilder.buildTransportLayer(SaslChannelBuilder.java:259)
+  	at org.apache.kafka.common.network.SaslChannelBuilder.buildChannel(SaslChannelBuilder.java:216)
+  	at org.apache.kafka.common.network.Selector.buildAndAttachKafkaChannel(Selector.java:338)
+  	at org.apache.kafka.common.network.Selector.registerChannel(Selector.java:329)
+  	at org.apache.kafka.common.network.Selector.connect(Selector.java:256)
+  	at org.apache.kafka.clients.NetworkClient.initiateConnect(NetworkClient.java:987)
+  	at org.apache.kafka.clients.NetworkClient.ready(NetworkClient.java:311)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.trySend(ConsumerNetworkClient.java:498)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.poll(ConsumerNetworkClient.java:255)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.poll(ConsumerNetworkClient.java:236)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.poll(ConsumerNetworkClient.java:215)
+  	at org.apache.kafka.clients.consumer.internals.Fetcher.getTopicMetadata(Fetcher.java:374)
+  	at org.apache.kafka.clients.consumer.internals.Fetcher.getAllTopicMetadata(Fetcher.java:357)
+  	at org.apache.kafka.clients.consumer.KafkaConsumer.listTopics(KafkaConsumer.java:1994)
+  	at org.apache.kafka.clients.consumer.KafkaConsumer.listTopics(KafkaConsumer.java:1972)
+  	at com.kafkaexplorer.utils.KafkaLib.listTopics(KafkaLib.java:113)
+  	at com.kafkaexplorer.ClusterConfigController$2.call(ClusterConfigController.java:163)
+  	at com.kafkaexplorer.ClusterConfigController$2.call(ClusterConfigController.java:145)
+  	at javafx.graphics/javafx.concurrent.Task$TaskCallable.call(Task.java:1425)
+  	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+  	at java.base/java.lang.Thread.run(Thread.java:832)}
+
+)
+javax.net.ssl|WARNING|1C|Thread-5|2021-09-01 13:52:18.653 EDT|NamedGroup.java:297|No AlgorithmParameters for x448 (
+"throwable" : {
+  java.security.NoSuchAlgorithmException: Algorithm x448 not available
+  	at java.base/javax.crypto.KeyAgreement.getInstance(KeyAgreement.java:192)
+  	at java.base/sun.security.ssl.NamedGroup.<init>(NamedGroup.java:286)
+  	at java.base/sun.security.ssl.NamedGroup.<clinit>(NamedGroup.java:188)
+  	at java.base/sun.security.ssl.SignatureScheme.<clinit>(SignatureScheme.java:59)
+  	at java.base/sun.security.ssl.SSLSessionImpl.<clinit>(SSLSessionImpl.java:817)
+  	at java.base/sun.security.ssl.TransportContext.<init>(TransportContext.java:150)
+  	at java.base/sun.security.ssl.TransportContext.<init>(TransportContext.java:109)
+  	at java.base/sun.security.ssl.SSLEngineImpl.<init>(SSLEngineImpl.java:84)
+  	at java.base/sun.security.ssl.SSLContextImpl$AbstractTLSContext.createSSLEngineImpl(SSLContextImpl.java:589)
+  	at java.base/sun.security.ssl.SSLContextImpl.engineCreateSSLEngine(SSLContextImpl.java:183)
+  	at java.base/javax.net.ssl.SSLContext.createSSLEngine(SSLContext.java:412)
+  	at org.apache.kafka.common.security.ssl.DefaultSslEngineFactory.createSslEngine(DefaultSslEngineFactory.java:187)
+  	at org.apache.kafka.common.security.ssl.DefaultSslEngineFactory.createClientSslEngine(DefaultSslEngineFactory.java:93)
+  	at org.apache.kafka.common.security.ssl.SslFactory.createSslEngine(SslFactory.java:193)
+  	at org.apache.kafka.common.network.SaslChannelBuilder.buildTransportLayer(SaslChannelBuilder.java:259)
+  	at org.apache.kafka.common.network.SaslChannelBuilder.buildChannel(SaslChannelBuilder.java:216)
+  	at org.apache.kafka.common.network.Selector.buildAndAttachKafkaChannel(Selector.java:338)
+  	at org.apache.kafka.common.network.Selector.registerChannel(Selector.java:329)
+  	at org.apache.kafka.common.network.Selector.connect(Selector.java:256)
+  	at org.apache.kafka.clients.NetworkClient.initiateConnect(NetworkClient.java:987)
+  	at org.apache.kafka.clients.NetworkClient.ready(NetworkClient.java:311)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.trySend(ConsumerNetworkClient.java:498)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.poll(ConsumerNetworkClient.java:255)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.poll(ConsumerNetworkClient.java:236)
+  	at org.apache.kafka.clients.consumer.internals.ConsumerNetworkClient.poll(ConsumerNetworkClient.java:215)
+  	at org.apache.kafka.clients.consumer.internals.Fetcher.getTopicMetadata(Fetcher.java:374)
+  	at org.apache.kafka.clients.consumer.internals.Fetcher.getAllTopicMetadata(Fetcher.java:357)
+  	at org.apache.kafka.clients.consumer.KafkaConsumer.listTopics(KafkaConsumer.java:1994)
+  	at org.apache.kafka.clients.consumer.KafkaConsumer.listTopics(KafkaConsumer.java:1972)
+  	at com.kafkaexplorer.utils.KafkaLib.listTopics(KafkaLib.java:113)
+  	at com.kafkaexplorer.ClusterConfigController$2.call(ClusterConfigController.java:163)
+  	at com.kafkaexplorer.ClusterConfigController$2.call(ClusterConfigController.java:145)
+  	at javafx.graphics/javafx.concurrent.Task$TaskCallable.call(Task.java:1425)
+  	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+  	at java.base/java.lang.Thread.run(Thread.java:832)}
+
+)
+javax.net.ssl|DEBUG|1C|Thread-5|2021-09-01 13:52:18.661 EDT|SSLConfiguration.java:458|System property jdk.tls.client.SignatureSchemes is set to 'null'

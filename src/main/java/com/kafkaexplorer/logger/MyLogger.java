@@ -30,6 +30,11 @@ public class MyLogger {
     public static void logError(Exception e){
         StringWriter errors = new StringWriter();
         e.printStackTrace(new PrintWriter(errors));
+
+        for (StackTraceElement ste : e.getStackTrace()) {
+            getLogger().error(ste.toString());
+        }
         getLogger().error(errors.toString());
+
     }
 }

@@ -48,17 +48,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>14</version>
+            <version>16</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>15</version>
+            <version>16</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>15</version>
+            <version>16</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
@@ -244,8 +244,11 @@
                             <bundleJre>true</bundleJre>
                             <customizedJre>true</customizedJre>
                             <createTarball>false</createTarball>
-                            <modules>java.base,java.management,java.security.jgss</modules>
+                            <modules>java.base,java.management,java.security.jgss,jdk.crypto.cryptoki</modules>
                             <additionalModules>javafx.base,javafx.controls,javafx.fxml,javafx.graphics</additionalModules>
+<!--                            <vmArgs>
+                                <vmArg>-Djavax.net.debug=ssl:handshake:verbose</vmArg>
+                            </vmArgs>-->
                             <macConfig>
                                 <generatePkg>false</generatePkg>
                                 <icnsFile>img/Kafkaexplorer.icns</icnsFile>
