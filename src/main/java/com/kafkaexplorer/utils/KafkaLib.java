@@ -65,6 +65,8 @@ public class KafkaLib {
         this.props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         this.props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
 
+        this.props.put("client.dns.lookup", "use_all_dns_ips");
+
         //producer config
         this.props.put(ProducerConfig.ACKS_CONFIG, "all");
         this.props.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -76,7 +78,7 @@ public class KafkaLib {
             this.props.put("ssl.truststore.location", cluster.getTrustStoreJKS());
             this.props.put("ssl.truststore.password", cluster.getTrustStoreJKSPwd());
 
-            //Set SSL at JVM level to be used by the Schema Registry SSL Rest Clien
+            //Set SSL at JVM level to be used by the Schema Registry SSL Rest Client
             System.setProperty("javax.net.ssl.trustStore",cluster.getTrustStoreJKS());
             System.setProperty("javax.net.ssl.trustStorePassword",cluster.getTrustStoreJKSPwd());
 
