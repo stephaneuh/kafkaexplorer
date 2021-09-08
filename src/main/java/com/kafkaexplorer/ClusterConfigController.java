@@ -148,14 +148,11 @@ public class ClusterConfigController implements Initializable {
                 ((ProgressIndicator)rootGridPane.getScene().lookup("#progBar2")).setVisible(true);
 
                 //Get and store topics list
-
                 KafkaLib kafkaConnector = new KafkaLib();
-                try {
-                    kafkaConnector.connect(cluster);
-                } catch (Exception e) {
-                    MyLogger.logError(e);
-                }
-                ArrayList<String> topics = kafkaConnector.listTopics(cluster);
+                ArrayList<String> topics;
+
+               topics = kafkaConnector.listTopics(cluster);
+
                 cluster.setTopicList(topics);
 
                 //Build and expand kafkaTree

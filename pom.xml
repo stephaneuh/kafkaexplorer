@@ -122,7 +122,6 @@
             <artifactId>kafka-json-serializer</artifactId>
             <version>6.1.0</version>
         </dependency>
-
     </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -151,6 +150,9 @@
                 <version>0.0.5</version>
                 <configuration>
                     <mainClass>com.kafkaexplorer.Main</mainClass>
+<!--                    <options>
+                        <option>-Djavax.net.debug=all</option>
+                    </options>-->
                 </configuration>
             </plugin>
 

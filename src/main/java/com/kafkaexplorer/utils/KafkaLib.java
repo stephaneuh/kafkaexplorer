@@ -84,26 +84,23 @@ public class KafkaLib {
 
     }
 
-    public String connect(Cluster cluster) throws Exception{
-
-        this.setProps(cluster);
-
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>( this.getProps());
-        consumer.close();
-
-        return "OK";
-    }
-
     public ArrayList<String> listTopics(Cluster cluster){
-
-        Map<String, List<PartitionInfo>> topics;
+        Map<String, List<PartitionInfo>> topics = Map.of();
         ArrayList<String> onlyTopicsName = new ArrayList<String>();
 
         this.setProps(cluster);
-
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(this.getProps());
-        topics = consumer.listTopics();
-        consumer.close();
+
+        try {
+
+            topics = consumer.listTopics();
+
+        }catch (Exception e){
+            MyLogger.logError(e);
+        }
+        finally {
+            consumer.close();
+        }
 
         Iterator<Map.Entry<String, List<PartitionInfo>>> iterator = topics.entrySet().iterator();
 
