@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
+<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
    <children>
       <GridPane VBox.vgrow="NEVER">
               <columnConstraints>
@@ -32,7 +32,7 @@
             <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="10.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
                   <Label prefHeight="17.0" prefWidth="99.0" text="Topic Name" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
@@ -40,7 +40,7 @@
             <JFXTextField fx:id="topic" editable="false" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <TableView fx:id="partitionTable" minWidth="300.0" prefHeight="134.0" prefWidth="407.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             <Label layoutX="47.0" layoutY="95.0" prefHeight="17.0" prefWidth="99.0" text="Partitions" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Label layoutX="47.0" layoutY="53.0" prefHeight="17.0" prefWidth="99.0" text="Browse Messages" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9" />
+            <Label layoutX="47.0" layoutY="53.0" prefHeight="17.0" prefWidth="111.0" text="Browse Messages" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9" />
             <JFXButton fx:id="startButton" minWidth="70.0" onMouseClicked="#startBrowsing" prefWidth="70.0" text="Start" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="170.0" />
@@ -139,6 +139,12 @@
                <GridPane.margin>
                   <Insets left="370.0" />
                </GridPane.margin></Label>
+            <Label text="Filter" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+            <JFXTextField fx:id="filter" layoutX="563.0" layoutY="417.0" maxWidth="400.0" minWidth="400.0" prefHeight="27.0" prefWidth="400.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="11">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </JFXTextField>
               </children>
           </GridPane>
       <TableView fx:id="messagesTable" VBox.vgrow="ALWAYS" />

@@ -56,6 +56,7 @@ public class TopicBrowserController implements Initializable {
     public JFXButton exportData;
     public JFXTextField offset;
     public JFXComboBox partitionID;
+    public JFXTextField filter;
     private TreeView<String> kafkaTreeRef;
     private Cluster cluster;
     private List<PartitionInfo> partitionInfo;
@@ -101,8 +102,8 @@ public class TopicBrowserController implements Initializable {
 
         TableColumn<Map, Object> offsetColumn = new TableColumn<>("Offset");
         offsetColumn.setCellValueFactory(new MapValueFactory<>("Offset"));
-        offsetColumn.setPrefWidth(40);
-        offsetColumn.setMinWidth(40);
+        offsetColumn.setPrefWidth(60);
+        offsetColumn.setMinWidth(60);
 
         TableColumn<Map, Object> createdColumn = new TableColumn<>("Created");
         createdColumn.setCellValueFactory(new MapValueFactory<>("Created"));
@@ -121,6 +122,10 @@ public class TopicBrowserController implements Initializable {
         srSubjectColumn.setCellValueFactory(new MapValueFactory<>("Schema Subject"));
         srSubjectColumn.setMinWidth(100);
 
+        TableColumn<Map, Object> keyColumn = new TableColumn<>("Key");
+        keyColumn.setCellValueFactory(new MapValueFactory<>("Key"));
+        keyColumn.setMinWidth(200);
+
         TableColumn<Map, Object> messageColumn = new TableColumn<>("Message");
         messageColumn.setCellValueFactory(new MapValueFactory<>("Message"));
         messageColumn.setMinWidth(800);
@@ -128,11 +133,13 @@ public class TopicBrowserController implements Initializable {
         messagesTable.getColumns().add(partitionColumn);
         messagesTable.getColumns().add(offsetColumn);
         messagesTable.getColumns().add(createdColumn);
+
+        messagesTable.getColumns().add(keyColumn);
+        messagesTable.getColumns().add(messageColumn);
+
         messagesTable.getColumns().add(srTypeColumn);
         messagesTable.getColumns().add(srIdColumn);
         messagesTable.getColumns().add(srSubjectColumn);
-
-        messagesTable.getColumns().add(messageColumn);
 
         messagesTable.getSortOrder().add(createdColumn);
 
@@ -336,7 +343,7 @@ public class TopicBrowserController implements Initializable {
         Task<Integer> task = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                kafkaConnector.browseTopic(cluster, topic.getText(), browsingType.getValue().toString(), messagesTable,startButton, stopButton, Integer.parseInt(partitionID.getSelectionModel().getSelectedItem().toString()), Long.valueOf(offset.getText()), partitionInfo);
+                kafkaConnector.browseTopic(cluster, topic.getText(), browsingType.getValue().toString(), messagesTable,startButton, stopButton, Integer.parseInt(partitionID.getSelectionModel().getSelectedItem().toString()), Long.valueOf(offset.getText()), partitionInfo, filter.getText());
                 return 0;
             }
 

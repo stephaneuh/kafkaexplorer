@@ -131,7 +131,7 @@ public class KafkaLib {
     }
 
 
-    public void browseTopic(Cluster cluster, String topicName, String browseFrom, TableView messagesTable, Button startButton, Button stopButton, int partitionID, long offset, List<PartitionInfo> partitionInfo) {
+    public void browseTopic(Cluster cluster, String topicName, String browseFrom, TableView messagesTable, Button startButton, Button stopButton, int partitionID, long offset, List<PartitionInfo> partitionInfo, String filter) {
 
         this.setProps(cluster);
 
@@ -213,10 +213,14 @@ public class KafkaLib {
                     ByteBuffer buffer = ByteBuffer.wrap(payload);
 
                     if (( buffer == null || buffer.remaining() == 0) || (buffer.get() != MAGIC_BYTE)) {
-                        item1.put("Schema Id", "N.A");
-                        item1.put("Schema Type", "N.A");
-                        item1.put("Message", record.value());
-                        item1.put("Schema Subject", "N.A");
+                        if (record.value().contains(filter) || record.key().contains(filter)){
+                            item1.put("Schema Id", "N.A");
+                            item1.put("Schema Type", "N.A");
+                            item1.put("Message", record.value());
+                            item1.put("Schema Subject", "N.A");
+                            item1.put("Key", record.key().toString());
+                            messagesTable.getItems().add(item1);
+                        }
                     } else { // Schema Id found at the beginning of the message
                         schemaId = buffer.getInt();
                         item1.put("Schema Id", schemaId);
@@ -258,9 +262,8 @@ public class KafkaLib {
                             item1.put("Schema Subject", "Error");
                         }
 
+                        messagesTable.getItems().add(item1);
                     }
-
-                    messagesTable.getItems().add(item1);
                     messagesTable.sort();
 
                     if (!continueBrowsing){
