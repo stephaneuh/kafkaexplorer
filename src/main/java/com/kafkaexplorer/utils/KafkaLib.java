@@ -142,9 +142,6 @@ public class KafkaLib {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(this.getProps());
 
-
-
-
         //consumer.poll(0);  // without this, the assignment will be empty.
         //ConsumerRecords<String, String> records =
 

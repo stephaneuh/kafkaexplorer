@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
+<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
    <children>
       <GridPane VBox.vgrow="NEVER">
               <columnConstraints>
@@ -107,7 +107,7 @@
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin></JFXComboBox>
-            <JFXButton fx:id="exportData" mnemonicParsing="false" onMouseClicked="#exportTableToCSV" text="Export table in CSV" GridPane.columnIndex="7" GridPane.rowIndex="10">
+            <JFXButton fx:id="exportData" mnemonicParsing="false" onMouseClicked="#exportTableToCSV" text="Export table in YAML" GridPane.columnIndex="7" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="115.0" />
                </GridPane.margin>

@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -33,10 +34,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import com.kafkaexplorer.logger.MyLogger;
 
 public class TopicBrowserController implements Initializable {
@@ -143,6 +142,40 @@ public class TopicBrowserController implements Initializable {
 
         messagesTable.getSortOrder().add(createdColumn);
 
+        //Enable click and copy on the tableview
+        messagesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        MenuItem item = new MenuItem("Copy");
+        item.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                ObservableList rowList = (ObservableList) messagesTable.getSelectionModel().getSelectedItems();
+
+                StringBuilder clipboardString = new StringBuilder();
+
+                for (Iterator it = rowList.iterator(); it.hasNext();) {
+                    ObservableList<Object> row = FXCollections.observableArrayList(it.next());
+
+                    for (Object cell : row) {
+                        if (cell == null) {
+                            cell = "";
+                        }
+                        clipboardString.append(cell);
+                        clipboardString.append('\t');
+                    }
+                    clipboardString.append('\n');
+
+                }
+                final ClipboardContent content = new ClipboardContent();
+
+                content.putString(clipboardString.toString());
+                Clipboard.getSystemClipboard().setContent(content);
+            }
+        });
+        ContextMenu menu = new ContextMenu();
+        menu.getItems().add(item);
+        messagesTable.setContextMenu(menu);
+
         //init topic config table
         TableColumn<Map, Object> topicConfigKey = new TableColumn<>("Config");
         topicConfigKey.setCellValueFactory(new MapValueFactory<>("Config"));
@@ -152,7 +185,6 @@ public class TopicBrowserController implements Initializable {
 
         topicConfigTable.getColumns().add(topicConfigKey);
         topicConfigTable.getColumns().add(topicConfigValue);
-
     }
 
     public void populateScreen(Cluster cluster, String topicName, TreeView<String> clusterTreeView) {
@@ -363,6 +395,7 @@ public class TopicBrowserController implements Initializable {
                 super.failed();
 
                 //show an alert Dialog
+                MyLogger.logError((Exception) this.getException());
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setHeaderText("Can't browse! You need to set the CONSUMER GROUP and TOPIC READ ACLs.");
                 a.setContentText(this.getException().getMessage());
@@ -416,7 +449,7 @@ public class TopicBrowserController implements Initializable {
     public void exportTableToCSV(MouseEvent mouseEvent) {
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("YAML files (*.yaml)", "*.yaml"));
         Stage stage = (Stage)  exportData.getScene().getWindow();
         //Get filename to export data
         File selectedFile = fileChooser.showSaveDialog(stage);
@@ -424,21 +457,31 @@ public class TopicBrowserController implements Initializable {
         //Export data
         if (selectedFile != null) {
 
-            String csvData = "";
+            String yamlData = "";
             ObservableList<Map<String, Object>> items = messagesTable.getItems();
+
+/*            - key: 1
+            message: sdjlkfhsdf
+            partition: sdlkfjlsd
+            offset: sdlkfj
+            schemaId: sdlkfjlksdf
+            creationDate: sdkjfhkjsd*/
+
+
             for (Map<String, Object> map : items) {
+                yamlData += "-";
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    String key = entry.getKey();
-                    if (key.equalsIgnoreCase("Message")) {
-                        Object value = entry.getValue();
-                        csvData += "\n" + entry.getValue();
-                    }
+                    String key = entry.getKey().replaceAll("\\s","");
+                    key = key.replaceFirst(key.substring(0,1), key.substring(0,1).toLowerCase());
+                    Object value = entry.getValue();
+                    yamlData += "\t" + key + ": " + value +"\n";
                 }
+                yamlData += "\n";
             }
 
             try {
                 FileWriter myWriter = new FileWriter(selectedFile.getPath());
-                myWriter.write(csvData);
+                myWriter.write(yamlData);
                 myWriter.close();
             } catch (IOException e) {
                 MyLogger.logDebug("An error occurred.");
