@@ -67,8 +67,6 @@ public class KafkaExplorerController implements Initializable {
             ContextMenu menu = new ContextMenu();
             menu.getItems().add(mi1);
             kafkaTree.setContextMenu(menu);
-
-
         } catch (IOException e) {
             MyLogger.logError(e);
         }
