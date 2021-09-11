@@ -46,7 +46,7 @@ Have questions? [Q&A section](https://github.com/stephaneuh/kafkaexplorer/discus
 
 ### Windows with Chocolatey: 
 ```
-choco install kafkaexplorer --version=1.1 --force
+choco install kafkaexplorer --version=1.1 --ignore-checksums --force
 ```
 or download and install manually the latest version: [Kafkaexplorer_1.1.exe](/releases/Kafkaexplorer_1.1.exe)
 ### MacOs with Brew: 
