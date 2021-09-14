@@ -52,7 +52,7 @@ or download and install manually the latest version: [Kafkaexplorer_1.1.exe](/re
 ### MacOs with Brew: 
 ```
 brew tap stephaneuh/homebrew-repo
-brew install kafkaexplorer
+brew install kafkaexplorer --force
 ```
 or
 download and install manually the latest version: [Kafkaexplorer_1.1.dmg](/releases/Kafkaexplorer_1.1.dmg)
