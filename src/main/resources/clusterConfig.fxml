@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -47,7 +45,7 @@
             <Label layoutX="79.0" layoutY="79.0" text="sasl.mechanism" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField fx:id="saslMechanism" maxWidth="312.0" minWidth="200.0" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
 
-            <JFXButton mnemonicParsing="false" onMouseClicked="#connectToKafka" text="Connect" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
+            <Button mnemonicParsing="false" onMouseClicked="#connectToKafka" text="Connect" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
          <TextField fx:id="name" maxWidth="298.0" minWidth="200.0" prefHeight="25.0" prefWidth="298.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          <Label text="Cluster name" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" />
@@ -71,12 +69,12 @@
             <Insets bottom="5.0" left="110.0" />
          </GridPane.margin>
       </ImageView>
-      <JFXButton mnemonicParsing="false" onMouseClicked="#saveCluster" text="Save" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
-      <JFXButton mnemonicParsing="false" onMouseClicked="#browseJKS" text="Browse" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="7">
+      <Button mnemonicParsing="false" onMouseClicked="#saveCluster" text="Save" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
+      <Button mnemonicParsing="false" onMouseClicked="#browseJKS" text="Browse" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="10.0" />
-         </GridPane.margin></JFXButton>
-      <JFXButton mnemonicParsing="false" onMouseClicked="#deleteCluster" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="15" />
+         </GridPane.margin></Button>
+      <Button mnemonicParsing="false" onMouseClicked="#deleteCluster" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="15" />
       <Label prefHeight="17.0" prefWidth="148.0" text="Jks truststore password" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
       <TextField fx:id="jksPwd" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
       <Label text="Ex: [empty] or PLAIN" GridPane.columnIndex="5" GridPane.rowIndex="4">

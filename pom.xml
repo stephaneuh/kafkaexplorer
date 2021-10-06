@@ -100,11 +100,11 @@
             <artifactId>maven-resources-plugin</artifactId>
             <version>3.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.jfoenix</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>9.0.10</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.jfoenix</groupId>-->
+<!--            <artifactId>jfoenix</artifactId>-->
+<!--            <version>9.0.10</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client -->
         <dependency>
             <groupId>io.confluent</groupId>

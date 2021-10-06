@@ -1,8 +1,6 @@
 package com.kafkaexplorer;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
-import com.jfoenix.controls.JFXTreeCell;
+
 import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.logger.MyLogger;
@@ -24,6 +22,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -167,10 +166,10 @@ public class ClusterConfigController implements Initializable {
 
                         HBox hBox = new HBox(3);
                         //show-hide internal topics button
-                        JFXToggleButton toggleButton1 = new JFXToggleButton();
+                        ToggleButton toggleButton1 = new ToggleButton();
                         toggleButton1.setId("hideInternal");
                         //filter input
-                        JFXTextField searchField = new JFXTextField();
+                        TextField searchField = new TextField();
                         searchField.setMaxWidth(50);
                         searchField.setPromptText("filter...");
 
@@ -178,9 +177,9 @@ public class ClusterConfigController implements Initializable {
                             @Override
                             public void handle(Event event) {
 
-                                JFXTextField searchField = (JFXTextField)event.getSource();
-                                TreeItem treeItem = (TreeItem)((JFXTreeCell)((HBox)searchField.getParent()).getParent()).getTreeItem();
-                                JFXToggleButton tb = (JFXToggleButton) searchField.getScene().lookup("#hideInternal");
+                                TextField searchField = (TextField)event.getSource();
+                                TreeItem treeItem = (TreeItem)((TreeCell)((HBox)searchField.getParent()).getParent()).getTreeItem();
+                                ToggleButton tb = (ToggleButton) searchField.getScene().lookup("#hideInternal");
 
                                 boolean displayInternal = false;
                                 if (!tb.isSelected()){
@@ -197,8 +196,8 @@ public class ClusterConfigController implements Initializable {
                             @Override
                             public void handle(ActionEvent event) {
                                 //empty topics list for this cluster
-                                JFXToggleButton button = (JFXToggleButton)event.getSource();
-                                TreeItem treeItem = (TreeItem)((JFXTreeCell)((HBox)button.getParent()).getParent()).getTreeItem();
+                                ToggleButton button = (ToggleButton)event.getSource();
+                                TreeItem treeItem = (TreeItem)((TreeCell)((HBox)button.getParent()).getParent()).getTreeItem();
                                 treeItem.getChildren().clear();
 
                                 filterUITopics(treeItem, searchField.getText(), !button.isSelected());

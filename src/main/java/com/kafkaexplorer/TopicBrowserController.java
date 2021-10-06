@@ -1,8 +1,5 @@
 package com.kafkaexplorer;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.model.Cluster;
 import com.kafkaexplorer.utils.UI;
@@ -43,19 +40,19 @@ public class TopicBrowserController implements Initializable {
     @FXML
     public TextField topic;
     public TableView partitionTable;
-    public JFXComboBox browsingType;
+    public ComboBox browsingType;
     public TableView messagesTable;
     public TextField produceMsg;
     public Button startButton;
     public Button stopButton;
     public TableView topicConfigTable;
     public VBox rootNode;
-    public JFXTextField schemaId;
+    public TextField schemaId;
     public ToggleGroup schemaType;
-    public JFXButton exportData;
-    public JFXTextField offset;
-    public JFXComboBox partitionID;
-    public JFXTextField filter;
+    public Button exportData;
+    public TextField offset;
+    public ComboBox partitionID;
+    public TextField filter;
     private TreeView<String> kafkaTreeRef;
     private Cluster cluster;
     private List<PartitionInfo> partitionInfo;
@@ -200,24 +197,28 @@ public class TopicBrowserController implements Initializable {
             @Override
             protected Integer call() throws Exception {
 
-                KafkaLib kafkaConnector = new KafkaLib();
-                partitionInfo = kafkaConnector.getTopicPartitionInfo(cluster, topicName);
-                displayPartitionInfo(partitionInfo);
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
 
-                //Add partition number to partitionId DropDown
-                for (int i = 0; i < partitionInfo.size(); i++) {
-                    partitionID.getItems().addAll(partitionInfo.get(i).partition());
-                }
+                        KafkaLib kafkaConnector = new KafkaLib();
+                        partitionInfo = kafkaConnector.getTopicPartitionInfo(cluster, topicName);
+                        displayPartitionInfo(partitionInfo);
 
-                KafkaFuture<Config> configFuture = kafkaConnector.getTopicInfo(cluster, topicName);
-                displayTopicInfo(configFuture);
+                        //Add partition number to partitionId DropDown
+                        for (int i = 0; i < partitionInfo.size(); i++) {
+                            partitionID.getItems().addAll(partitionInfo.get(i).partition());
+                        }
 
+                        KafkaFuture<Config> configFuture = kafkaConnector.getTopicInfo(cluster, topicName);
+                        displayTopicInfo(configFuture);
+                            }
+                    });
                 return 0;
             }
 
             @Override
             protected void succeeded() {
-                ((JFXComboBox)rootNode.getScene().lookup("#partitionID")).getSelectionModel().selectFirst();
+                ((ComboBox)rootNode.getScene().lookup("#partitionID")).getSelectionModel().selectFirst();
                 startButton.setDisable(false);
                 ((ProgressIndicator)rootNode.getScene().lookup("#progBar2")).setVisible(false);
                 super.succeeded();
