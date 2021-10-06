@@ -190,7 +190,7 @@ public class ClusterConfigController implements Initializable {
                             }
                         });
 
-                        toggleButton1.setText("hide internal)");
+                        toggleButton1.setText("hide internal");
                         toggleButton1.setSelected(true);
                         toggleButton1.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -206,7 +206,7 @@ public class ClusterConfigController implements Initializable {
                         });
 
                         Label label = new Label("topics");
-                        Label middleLabel = new Label("(");
+                        Label middleLabel = new Label(" ");
                         hBox.setAlignment(Pos.CENTER_LEFT);
 
                         hBox.getChildren().addAll(label,searchField, middleLabel, toggleButton1);

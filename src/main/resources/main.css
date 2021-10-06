@@ -116,12 +116,12 @@
 }*/
 
 
-.jfx-toggle-button {
-    -jfx-toggle-color: #bd93f9;
-    -fx-padding: -14 0 -14 0;
+.toggle-button {
+    -toggle-color: #bd93f9;
+    -padding: -14 0 -14 0;
     -fx-text-fill: #f8f8f2 ;
     -fx-font-size: 12px;
-    -jfx-size: 7px;
+    -size: 7px;
 }
 
 
