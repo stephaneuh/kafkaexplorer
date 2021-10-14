@@ -117,15 +117,23 @@
 
 
 .toggle-button {
-    -toggle-color: #bd93f9;
     -padding: -14 0 -14 0;
     -fx-text-fill: #f8f8f2 ;
     -fx-font-size: 12px;
     -size: 7px;
 }
 
+.toggle-button:selected {
+    -padding: -14 0 -14 0;
+    -fx-text-fill: #f8f8f2 ;
+    -fx-font-size: 12px;
+    -size: 7px;
+    -fx-base: #bd93f9;
 
-.jfx-text-field {
+}
+
+
+.text-field {
     -fx-font-size: 12px;
     -fx-padding: -2 0 -2 1;
     -fx-prompt-text-fill: #a1a3b0;
@@ -134,23 +142,24 @@
 
 }
 
-.jfx-rippler {
+.rippler {
     -jfx-rippler-fill: #5190C9;
 }
 
 
-.jfx-combo-box .input-focused-line{
+.combo-box .input-focused-line{
     -fx-pref-height: 0.5px;
     -jfx-focus-color: #5190C9;
 }
 
 
 
-.jfx-radio-button {
+.radio-button {
     -fx-background-color: #3C3F41;
     -fx-text-fill: #f8f8f2 ;
     -jfx-selected-color: #bd93f9;
 }
+
 
 .separator *.line {
     -fx-border-style: solid;
@@ -159,23 +168,23 @@
 }
 
 
-.jfx-combo-box {
+.combo-box {
     -fx-text-fill: #f8f8f2;
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #4C5052;
     -fx-border-color: #a1a3b0;
     -fx-border-width: 0.5px;
 }
 
-.jfx-combo-box .label {
+.combo-box .label {
     -fx-background-color: #3C3F41;
     -fx-text-fill: #f8f8f2;
 }
 
-.jfx-combo-box .arrow {
+.combo-box .arrow {
     -fx-background-color: #f8f8f2;
 }
 
-.jfx-combo-box .cell {
+.combo-box .cell {
     -fx-text-fill: #f8f8f2;
     -fx-background-color:  #3C3F41;
 }
