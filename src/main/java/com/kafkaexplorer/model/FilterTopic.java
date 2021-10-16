@@ -3,7 +3,7 @@ package com.kafkaexplorer.model;
 public class FilterTopic {
     private String name;
 
-    public FilterTopic(){
+    public FilterTopic() {
 
     }
 

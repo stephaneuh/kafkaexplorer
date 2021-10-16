@@ -5,6 +5,7 @@ import com.kafkaexplorer.model.Cluster;
 import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.utils.HostServicesProvider;
 import com.kafkaexplorer.utils.UI;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

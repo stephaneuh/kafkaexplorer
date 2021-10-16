@@ -4,6 +4,7 @@ import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
 import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.utils.UI;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import org.apache.kafka.clients.admin.Config;
 import org.apache.kafka.clients.admin.ConfigEntry;
 import org.apache.kafka.common.KafkaFuture;

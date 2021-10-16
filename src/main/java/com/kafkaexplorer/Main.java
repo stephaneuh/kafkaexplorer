@@ -1,6 +1,7 @@
 package com.kafkaexplorer;
 
 import com.kafkaexplorer.utils.HostServicesProvider;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
