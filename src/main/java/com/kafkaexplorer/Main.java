@@ -1,24 +1,21 @@
 package com.kafkaexplorer;
 
-import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.utils.HostServicesProvider;
 import javafx.application.Application;
-import javafx.application.HostServices;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Locale;
-import java.util.UUID;
 
 public class Main extends Application {
 
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,14 +30,5 @@ public class Main extends Application {
         primaryStage.show();
 
 
-    }
-
-    public void placeMarker(Node newNode) {
-        System.out.println("Focus changed!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

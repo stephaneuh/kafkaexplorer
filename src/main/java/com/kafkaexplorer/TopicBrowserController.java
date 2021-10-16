@@ -1,7 +1,8 @@
 package com.kafkaexplorer;
 
-import com.kafkaexplorer.utils.KafkaLib;
+import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
+import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.utils.UI;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ import org.apache.kafka.clients.admin.ConfigEntry;
 import org.apache.kafka.common.KafkaFuture;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.config.TopicConfig;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,9 +35,10 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import com.kafkaexplorer.logger.MyLogger;
-
 public class TopicBrowserController implements Initializable {
+
+    private static final DecimalFormat df2 = new DecimalFormat("#.##");
+    final KafkaLib kafkaConnector = new KafkaLib();
 
     @FXML
     public TextField topic;
@@ -57,19 +60,15 @@ public class TopicBrowserController implements Initializable {
     private Cluster cluster;
     private List<PartitionInfo> partitionInfo;
 
-    final KafkaLib kafkaConnector = new KafkaLib();
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
         browsingType.getItems().addAll("from-beginning");
         browsingType.getItems().addAll("from-partition-offset");
         browsingType.setValue("from-partition-offset");
 
-        browsingType.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)->{
-            if(newVal != null) {
+        browsingType.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
                 if (newVal.equals("from-beginning")) {
                     Platform.runLater(new Runnable() {
                         @Override
@@ -79,7 +78,7 @@ public class TopicBrowserController implements Initializable {
                             offset.setText("0");
                         }
                     });
-                }else if (newVal.equals("from-partition-offset")) {
+                } else if (newVal.equals("from-partition-offset")) {
                     partitionID.setVisible(true);
                     offset.setText("0");
                     offset.setVisible(true);
@@ -146,11 +145,11 @@ public class TopicBrowserController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
 
-                ObservableList rowList = (ObservableList) messagesTable.getSelectionModel().getSelectedItems();
+                ObservableList rowList = messagesTable.getSelectionModel().getSelectedItems();
 
                 StringBuilder clipboardString = new StringBuilder();
 
-                for (Iterator it = rowList.iterator(); it.hasNext();) {
+                for (Iterator it = rowList.iterator(); it.hasNext(); ) {
                     ObservableList<Object> row = FXCollections.observableArrayList(it.next());
 
                     for (Object cell : row) {
@@ -198,7 +197,8 @@ public class TopicBrowserController implements Initializable {
             protected Integer call() throws Exception {
 
                 Platform.runLater(new Runnable() {
-                    @Override public void run() {
+                    @Override
+                    public void run() {
 
                         KafkaLib kafkaConnector = new KafkaLib();
                         partitionInfo = kafkaConnector.getTopicPartitionInfo(cluster, topicName);
@@ -211,28 +211,28 @@ public class TopicBrowserController implements Initializable {
 
                         KafkaFuture<Config> configFuture = kafkaConnector.getTopicInfo(cluster, topicName);
                         displayTopicInfo(configFuture);
-                            }
-                    });
+                    }
+                });
                 return 0;
             }
 
             @Override
             protected void succeeded() {
-                ((ComboBox)rootNode.getScene().lookup("#partitionID")).getSelectionModel().selectFirst();
+                ((ComboBox) rootNode.getScene().lookup("#partitionID")).getSelectionModel().selectFirst();
                 startButton.setDisable(false);
-                ((ProgressIndicator)rootNode.getScene().lookup("#progBar2")).setVisible(false);
+                rootNode.getScene().lookup("#progBar2").setVisible(false);
                 super.succeeded();
             }
 
             @Override
             protected void cancelled() {
-                ((ProgressIndicator)rootNode.getScene().lookup("#progBar2")).setVisible(false);
+                rootNode.getScene().lookup("#progBar2").setVisible(false);
                 super.cancelled();
             }
 
             @Override
             protected void failed() {
-                ((ProgressIndicator)rootNode.getScene().lookup("#progBar2")).setVisible(false);
+                rootNode.getScene().lookup("#progBar2").setVisible(false);
                 super.failed();
                 //show an alert Dialog
                 Alert a = new Alert(Alert.AlertType.ERROR);
@@ -250,7 +250,7 @@ public class TopicBrowserController implements Initializable {
 
     private void displayTopicInfo(KafkaFuture<Config> configFuture) {
 
-        ObservableList<Map<String, Object>> items = FXCollections.<Map<String, Object>>observableArrayList();
+        ObservableList<Map<String, Object>> items = FXCollections.observableArrayList();
 
         try {
 
@@ -326,14 +326,12 @@ public class TopicBrowserController implements Initializable {
         partitionTable.setContextMenu(menu);
 
 
-
-
         partitionTable.getColumns().add(partitionColumn);
         partitionTable.getColumns().add(leaderColumn);
         partitionTable.getColumns().add(replicasColumn);
         partitionTable.getColumns().add(inSynReplicasColumn);
 
-        ObservableList<Map<String, Object>> items = FXCollections.<Map<String, Object>>observableArrayList();
+        ObservableList<Map<String, Object>> items = FXCollections.observableArrayList();
 
         for (int i = 0; i < partitionInfo.size(); i++) {
             Map<String, Object> item1 = new HashMap<>();
@@ -376,7 +374,7 @@ public class TopicBrowserController implements Initializable {
         Task<Integer> task = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                kafkaConnector.browseTopic(cluster, topic.getText(), browsingType.getValue().toString(), messagesTable,startButton, stopButton, Integer.parseInt(partitionID.getSelectionModel().getSelectedItem().toString()), Long.valueOf(offset.getText()), partitionInfo, filter.getText());
+                kafkaConnector.browseTopic(cluster, topic.getText(), browsingType.getValue().toString(), messagesTable, startButton, stopButton, Integer.parseInt(partitionID.getSelectionModel().getSelectedItem().toString()), Long.valueOf(offset.getText()), partitionInfo, filter.getText());
                 return 0;
             }
 
@@ -425,7 +423,7 @@ public class TopicBrowserController implements Initializable {
         RadioButton selectedRadioButton = (RadioButton) schemaType.getSelectedToggle();
 
 
-        if (selectedRadioButton.getText().equalsIgnoreCase("Avro") || selectedRadioButton.getText().equalsIgnoreCase("Json Schema      Schema Id")){
+        if (selectedRadioButton.getText().equalsIgnoreCase("Avro") || selectedRadioButton.getText().equalsIgnoreCase("Json Schema      Schema Id")) {
             if (this.schemaId.getText() != null && !this.schemaId.getText().isEmpty())
                 schId = Integer.parseInt(this.schemaId.getText());
             else
@@ -434,8 +432,7 @@ public class TopicBrowserController implements Initializable {
 
         if (schId != -1) {
             kafkaConnector.produceMessage(cluster, topic.getText(), produceMsg.getText(), schId);
-        }
-        else {
+        } else {
             //todo: Message please provide schemaID
             MyLogger.logDebug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> please provide schemaID");
         }
@@ -451,7 +448,7 @@ public class TopicBrowserController implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("YAML files (*.yaml)", "*.yaml"));
-        Stage stage = (Stage)  exportData.getScene().getWindow();
+        Stage stage = (Stage) exportData.getScene().getWindow();
         //Get filename to export data
         File selectedFile = fileChooser.showSaveDialog(stage);
 
@@ -472,10 +469,10 @@ public class TopicBrowserController implements Initializable {
             for (Map<String, Object> map : items) {
                 yamlData += "-";
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    String key = entry.getKey().replaceAll("\\s","");
-                    key = key.replaceFirst(key.substring(0,1), key.substring(0,1).toLowerCase());
+                    String key = entry.getKey().replaceAll("\\s", "");
+                    key = key.replaceFirst(key.substring(0, 1), key.substring(0, 1).toLowerCase());
                     Object value = entry.getValue();
-                    yamlData += "\t" + key + ": " + value +"\n";
+                    yamlData += "\t" + key + ": " + value + "\n";
                 }
                 yamlData += "\n";
             }
@@ -490,19 +487,18 @@ public class TopicBrowserController implements Initializable {
             }
 
 
-
         }
 
     }
 
     public void onFavClicked(MouseEvent mouseEvent) {
-        ImageView favImage = (ImageView)mouseEvent.getSource();
-        String fileName = favImage.getImage().getUrl().toString();
+        ImageView favImage = (ImageView) mouseEvent.getSource();
+        String fileName = favImage.getImage().getUrl();
         String shortFileName = fileName.substring(fileName.lastIndexOf("/") + 1).trim();
 
         String newShortFileName = "fav_0.png";
 
-        if (shortFileName.equalsIgnoreCase("fav_0.png")){
+        if (shortFileName.equalsIgnoreCase("fav_0.png")) {
             //register this topic as favorite
             new UI().manageFav(topic.getText(), cluster.getName(), true);
             newShortFileName = "fav_1.png";

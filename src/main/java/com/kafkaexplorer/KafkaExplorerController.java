@@ -1,6 +1,8 @@
 package com.kafkaexplorer;
-import com.kafkaexplorer.utils.ConfigStore;
+
+import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
+import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.utils.HostServicesProvider;
 import com.kafkaexplorer.utils.UI;
 import javafx.event.ActionEvent;
@@ -11,11 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
@@ -24,17 +23,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.UUID;
-import com.kafkaexplorer.logger.MyLogger;
 
 public class KafkaExplorerController implements Initializable {
 
@@ -129,7 +122,7 @@ public class KafkaExplorerController implements Initializable {
 
                     topicBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
                     //delete: mainContent.getChildren().setAll(mainRoot);
-                    MyLogger.logInfo("Node mainContent.getItems().size()  "+ mainContent.getItems().size());
+                    MyLogger.logInfo("Node mainContent.getItems().size()  " + mainContent.getItems().size());
 
                     unloadPreviousController(mainContent);
 

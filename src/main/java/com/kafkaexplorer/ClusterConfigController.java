@@ -1,10 +1,9 @@
 package com.kafkaexplorer;
 
-
-import com.kafkaexplorer.utils.ConfigStore;
-import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
+import com.kafkaexplorer.utils.ConfigStore;
+import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.utils.UI;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -17,23 +16,20 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class ClusterConfigController implements Initializable {
 
@@ -41,7 +37,7 @@ public class ClusterConfigController implements Initializable {
     public TextField name;
     public TextField securityType;
     public TextField jks;
-    public TextField  jksPwd;
+    public TextField jksPwd;
     public StackPane stack;
     public TextField bootstrap;
     public TextField saslMechanism;
@@ -144,13 +140,13 @@ public class ClusterConfigController implements Initializable {
             @Override
             public Void call() throws Exception {
 
-                ((ProgressIndicator)rootGridPane.getScene().lookup("#progBar2")).setVisible(true);
+                ((ProgressIndicator) rootGridPane.getScene().lookup("#progBar2")).setVisible(true);
 
                 //Get and store topics list
                 KafkaLib kafkaConnector = new KafkaLib();
                 ArrayList<String> topics;
 
-               topics = kafkaConnector.listTopics(cluster);
+                topics = kafkaConnector.listTopics(cluster);
 
                 cluster.setTopicList(topics);
 
@@ -173,16 +169,16 @@ public class ClusterConfigController implements Initializable {
                         searchField.setMaxWidth(50);
                         searchField.setPromptText("filter...");
 
-                        searchField.setOnKeyTyped   (new EventHandler() {
+                        searchField.setOnKeyTyped(new EventHandler() {
                             @Override
                             public void handle(Event event) {
 
-                                TextField searchField = (TextField)event.getSource();
-                                TreeItem treeItem = (TreeItem)((TreeCell)((HBox)searchField.getParent()).getParent()).getTreeItem();
+                                TextField searchField = (TextField) event.getSource();
+                                TreeItem treeItem = (TreeItem) ((TreeCell) ((HBox) searchField.getParent()).getParent()).getTreeItem();
                                 ToggleButton tb = (ToggleButton) searchField.getScene().lookup("#hideInternal");
 
                                 boolean displayInternal = false;
-                                if (!tb.isSelected()){
+                                if (!tb.isSelected()) {
                                     displayInternal = true;
                                 }
 
@@ -196,8 +192,8 @@ public class ClusterConfigController implements Initializable {
                             @Override
                             public void handle(ActionEvent event) {
                                 //empty topics list for this cluster
-                                ToggleButton button = (ToggleButton)event.getSource();
-                                TreeItem treeItem = (TreeItem)((TreeCell)((HBox)button.getParent()).getParent()).getTreeItem();
+                                ToggleButton button = (ToggleButton) event.getSource();
+                                TreeItem treeItem = (TreeItem) ((TreeCell) ((HBox) button.getParent()).getParent()).getTreeItem();
                                 treeItem.getChildren().clear();
 
                                 filterUITopics(treeItem, searchField.getText(), !button.isSelected());
@@ -209,7 +205,7 @@ public class ClusterConfigController implements Initializable {
                         Label middleLabel = new Label(" ");
                         hBox.setAlignment(Pos.CENTER_LEFT);
 
-                        hBox.getChildren().addAll(label,searchField, middleLabel, toggleButton1);
+                        hBox.getChildren().addAll(label, searchField, middleLabel, toggleButton1);
 
                         topicsRoot.setGraphic(hBox);
 
@@ -239,7 +235,7 @@ public class ClusterConfigController implements Initializable {
                     }
 
                 }
-                ((ProgressIndicator)rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
+                ((ProgressIndicator) rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
                 return null;
             }
         };
@@ -258,7 +254,7 @@ public class ClusterConfigController implements Initializable {
                 a.setContentText("Can't connect! See logs for details");
 
             a.show();
-            ((ProgressIndicator)rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
+            ((ProgressIndicator) rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
 
             //change cluster icon to grey
             setClusterIconToGreen(name.getText(), false);
@@ -268,7 +264,7 @@ public class ClusterConfigController implements Initializable {
         task.setOnSucceeded(evt -> {
             //change cluster icon to green
             setClusterIconToGreen(name.getText(), true);
-            ((ProgressIndicator)rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
+            ((ProgressIndicator) rootGridPane.getScene().lookup("#progBar2")).setVisible(false);
         });
 
         new Thread(task).start();
@@ -297,13 +293,13 @@ public class ClusterConfigController implements Initializable {
 
     }
 
-    private void filterUITopics(TreeItem treeItem, String searchText, boolean displayInternal){
+    private void filterUITopics(TreeItem treeItem, String searchText, boolean displayInternal) {
 
         //empty topics list for this cluster
         treeItem.getChildren().clear();
 
         boolean displayAllTopics = false;
-        if (searchText.isEmpty()){
+        if (searchText.isEmpty()) {
             displayAllTopics = true;
         }
 
@@ -323,8 +319,7 @@ public class ClusterConfigController implements Initializable {
 
             }
 
-        }else
-        {
+        } else {
             //if not selected (show all topics )
             for (String topicName : topics) {
                 if (displayAllTopics || topicName.contains(searchText)) {
@@ -353,7 +348,7 @@ public class ClusterConfigController implements Initializable {
 
     public void deleteCluster(MouseEvent mouseEvent) {
         //Ask to confirm deletion
-        if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Are you sure?")){
+        if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Are you sure?")) {
             new ConfigStore().deleteCluster(cluster);
             //refresh cluster list
             try {
@@ -375,4 +370,4 @@ public class ClusterConfigController implements Initializable {
             this.jks.setText(selectedFile.getPath());
     }
 
-    }
+}

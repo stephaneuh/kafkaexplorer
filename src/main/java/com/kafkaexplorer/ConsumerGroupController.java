@@ -11,14 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.VBox;
-import org.apache.kafka.clients.admin.*;
+import org.apache.kafka.clients.admin.DescribeConsumerGroupsResult;
+import org.apache.kafka.clients.admin.ListConsumerGroupOffsetsResult;
+import org.apache.kafka.clients.admin.MemberDescription;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ConsumerGroupController implements Initializable {
     @FXML
@@ -41,7 +42,7 @@ public class ConsumerGroupController implements Initializable {
     }
 
     public void populateScreen(Cluster cluster, String consumerGroupName, TreeView<String> clusterTreeView) {
-       // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(true);
+        // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(true);
         this.consumerGroupName.setText(consumerGroupName);
         this.kafkaTreeRef = clusterTreeView;
         this.cluster = cluster;
@@ -82,7 +83,6 @@ public class ConsumerGroupController implements Initializable {
                 partitionOffsetTable.getColumns().add(lagColumn);
 
 
-
                 ObservableList<Map<String, Object>> items = FXCollections.<Map<String, Object>>observableArrayList();
 
                 KafkaLib kafkaConnector = new KafkaLib();
@@ -118,7 +118,7 @@ public class ConsumerGroupController implements Initializable {
                         //search for consumerId and topic-partition in partitionsToOffsets
                         AtomicLong currentOffset = new AtomicLong(-1L);
                         partitionsToOffsets.forEach((topicPartition1, offsetAndMetadata) -> {
-                            if (topicPartition1.toString().equalsIgnoreCase(topicPartition.toString())){
+                            if (topicPartition1.toString().equalsIgnoreCase(topicPartition.toString())) {
                                 currentOffset.set(offsetAndMetadata.offset());
                             }
 
@@ -141,13 +141,13 @@ public class ConsumerGroupController implements Initializable {
 
                     members.forEach(memberDescription -> {
                         memberDescription.assignment().topicPartitions().forEach(TopicPartition -> {
-                                    if (TopicPartitionFromListConsumerGroup.toString().equalsIgnoreCase(TopicPartition.toString()))
-                                        found.set(true);
+                            if (TopicPartitionFromListConsumerGroup.toString().equalsIgnoreCase(TopicPartition.toString()))
+                                found.set(true);
                         });
                     });
 
-                    if (!found.get()){
-                      //this partition has no active consumer
+                    if (!found.get()) {
+                        //this partition has no active consumer
                         Map<String, Object> item1 = new HashMap<>();
                         item1.put("Consumer id", "--");
                         item1.put("Host", "--");
@@ -169,20 +169,20 @@ public class ConsumerGroupController implements Initializable {
                 consumerGroupStatus.requestFocus();
                 consumerGroupStatus.deselect();
                 super.succeeded();
-                ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+                ((ProgressIndicator) rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
                 MyLogger.logInfo("Task succeeded");
             }
 
             @Override
             protected void cancelled() {
-              // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+                // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
                 super.cancelled();
                 MyLogger.logInfo("Task cancelled");
             }
 
             @Override
             protected void failed() {
-              // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
+                // ((ProgressIndicator)rootNodeGroups.getScene().lookup("#progBar2")).setVisible(false);
                 super.failed();
                 //show an alert Dialog
                 Alert a = new Alert(Alert.AlertType.ERROR);
