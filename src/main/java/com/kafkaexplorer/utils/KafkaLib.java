@@ -130,7 +130,7 @@ public class KafkaLib {
     }
 
 
-    public void browseTopic(Cluster cluster, String topicName, String browseFrom, TableView messagesTable, Button startButton, Button stopButton, int partitionID, long offset, List<PartitionInfo> partitionInfo, String filter) {
+    public void browseTopic(Cluster cluster, String topicName, String browseFrom, TableView messagesTable, Button startButton, Button stopButton, int partitionID, long offset, List<PartitionInfo> partitionInfo2, String filter) {
 
         this.setProps(cluster);
 
@@ -142,18 +142,15 @@ public class KafkaLib {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(this.getProps());
 
-        //consumer.poll(0);  // without this, the assignment will be empty.
-        //ConsumerRecords<String, String> records =
-
         if (browseFrom.equals("from-beginning")) { // Read from all partitions from the beginning
-            //consumer.subscribe(Arrays.asList(topicName));
-            //  consumer.seekToBeginning(consumer.assignment());
 
-            for (int i = 0; i < partitionInfo.size(); i++) {
-                TopicPartition topicPartition = new TopicPartition(topicName, partitionInfo.get(i).partition());
-                consumer.assign(Collections.singleton(topicPartition));
-                consumer.seekToBeginning(Collections.singleton(topicPartition));
-            }
+            List<TopicPartition> topicPartitions = consumer.partitionsFor(topicName).stream()
+                    .map(partitionInfo -> new TopicPartition(partitionInfo.topic(), partitionInfo.partition()))
+                    .collect(Collectors.toList());
+
+            consumer.assign(topicPartitions);
+            consumer.seekToBeginning(topicPartitions);
+
 
         } else //Read from a specific partition and offset
         {
