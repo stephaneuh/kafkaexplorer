@@ -189,7 +189,7 @@ public class KafkaExplorerController implements Initializable {
         alert.setGraphic(null);
 
         VBox content = new VBox();
-        Label label3 = new Label("\nGitHub: \n");
+        Label label3 = new Label("\nWebsite: \n");
 
         Image image = new Image("/ke-icon-text.png");
         ImageView imageView = new ImageView();
