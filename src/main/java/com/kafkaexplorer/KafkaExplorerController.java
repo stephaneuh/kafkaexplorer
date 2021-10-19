@@ -201,7 +201,7 @@ public class KafkaExplorerController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 try {
-                    HostServicesProvider.INSTANCE.getHostServices().showDocument("http://kafkaexplorer.com");
+                    HostServicesProvider.INSTANCE.getHostServices().showDocument("https://kafkaexplorer.com");
                 } catch (Exception e1) {
                     MyLogger.logError(e1);
                 }
