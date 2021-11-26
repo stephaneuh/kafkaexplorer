@@ -520,7 +520,7 @@ public class TopicBrowserController implements Initializable {
         String topicName = topic.getText();
 
         //Ask to confirm deletion
-        if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Delete topic: " + topicName + ". Are you sure?")) {
+        if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Delete topic: " + topicName + "\n\n Are you sure?")) {
             kafkaConnector.deleteTopic(cluster, topicName);
             //refresh cluster list
             try {
