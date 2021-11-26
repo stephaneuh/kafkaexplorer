@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
+<VBox fx:id="rootNode" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kafkaexplorer.TopicBrowserController">
    <children>
       <GridPane VBox.vgrow="NEVER">
               <columnConstraints>
@@ -144,6 +144,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </TextField>
+            <Button layoutX="808.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#deleteTopic" text="Delete topic" GridPane.columnIndex="7" GridPane.rowIndex="1" />
               </children>
           </GridPane>
       <TableView fx:id="messagesTable" VBox.vgrow="ALWAYS" />

@@ -2,6 +2,7 @@ package com.kafkaexplorer;
 
 import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
+import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.utils.UI;
 
@@ -514,4 +515,27 @@ public class TopicBrowserController implements Initializable {
         favImage.setImage(image);
     }
 
+    public void deleteTopic(MouseEvent mouseEvent) {
+
+        String topicName = topic.getText();
+
+        //Ask to confirm deletion
+        if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Delete topic: " + topicName + ". Are you sure?")) {
+            kafkaConnector.deleteTopic(cluster, topicName);
+            //refresh cluster list
+            try {
+                new UI().refreshClusterList(kafkaTreeRef);
+//                this.rootGridPane.getChildren().clear();
+//
+            } catch (IOException e) {
+                MyLogger.logError(e);
+            }
+        }
+
+
+
+
+
+
+    }
 }

@@ -376,6 +376,14 @@ public class KafkaLib {
     }
 
 
+    public void deleteTopic(Cluster cluster, String topicName){
+        MyLogger.logInfo("Deleting topic: " + topicName + " from cluster: " + cluster.getName() + " " + cluster.getHostname());
 
+        this.setProps(cluster);
+        AdminClient kafkaClient = AdminClient.create(this.getProps());
+        //DeleteTopicsResult consumerInfo = kafkaClient.deleteTopics(Collections.singletonList(topicName));
+
+        MyLogger.logInfo("Deleting topic: " + topicName + " from cluster: " + cluster.getName() + " " + cluster.getHostname() + " - DONE");
+    }
 
 }
