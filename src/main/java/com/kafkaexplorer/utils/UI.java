@@ -27,7 +27,7 @@ public class UI {
         return choose.get() == ButtonType.OK;
     }
 
-    public void refreshClusterList(TreeView<String>  kafkaTree) throws IOException {
+    public void refreshClusterList(TreeView<String>  kafkaTree, Cluster clusterToSelect) throws IOException {
 
         Cluster[] clusters = new ConfigStore().loadClusters();
 
@@ -46,6 +46,16 @@ public class UI {
         kafkaTree.setRoot(root);
         root.setExpanded(true);
 
+        //select one cluster in the list
+        if (clusterToSelect != null) {
+            for(TreeItem<String> treeItem:root.getChildren()){
+                if(treeItem.getValue().equalsIgnoreCase(clusterToSelect.getName())){
+                    kafkaTree.getSelectionModel().select(treeItem);
+                    kafkaTree.getSelectionModel().select(treeItem);
+                    break;
+                }
+            }
+        }
         MyLogger.logDebug("KafkaExplorerController initialized! ");
     }
 
@@ -55,5 +65,4 @@ public class UI {
 
 
     }
-
 }

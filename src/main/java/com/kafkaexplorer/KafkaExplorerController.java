@@ -6,6 +6,7 @@ import com.kafkaexplorer.utils.ConfigStore;
 import com.kafkaexplorer.utils.HostServicesProvider;
 import com.kafkaexplorer.utils.UI;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class KafkaExplorerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            new UI().refreshClusterList(kafkaTree);
+            new UI().refreshClusterList(kafkaTree, null);
 
 
             MenuItem mi1 = new MenuItem("Copy");
@@ -61,22 +62,28 @@ public class KafkaExplorerController implements Initializable {
             ContextMenu menu = new ContextMenu();
             menu.getItems().add(mi1);
             kafkaTree.setContextMenu(menu);
+
+            kafkaTree.getSelectionModel().getSelectedItems().addListener((ListChangeListener<? super TreeItem<String>>) l -> refreshTreeView());
+
+
         } catch (IOException e) {
             MyLogger.logError(e);
         }
 
     }
 
-    public void onMouseClicked(MouseEvent mouseEvent) {
+    public void refreshTreeView() {
 
         //Open the topicBrowser screen
         try {
             clusters = new ConfigStore().loadClusters();
             // Get selected Node
-            Node node = mouseEvent.getPickResult().getIntersectedNode();
+           // TreeItem<String> node =  kafkaTree.getSelectionModel().getSelectedItem();
 
+
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>C");
             //Ensure that user clicked on a TreeCell
-            if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+           //if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
                 TreeItem selectedItem = (TreeItem) kafkaTree.getSelectionModel().getSelectedItem();
 
                 //selectedItem is a cluster, display cluster config
@@ -146,10 +153,98 @@ public class KafkaExplorerController implements Initializable {
 
                     mainContent.getItems().add(mainRoot);
                 }
-            }
+            //}
         } catch (Exception e) {
             MyLogger.logError(e);
         }
+
+    }
+
+
+
+    public void onMouseClicked(MouseEvent mouseEvent) {
+
+//        //Open the topicBrowser screen
+//        try {
+//            clusters = new ConfigStore().loadClusters();
+//            // Get selected Node
+//            Node node = mouseEvent.getPickResult().getIntersectedNode();
+//
+//            //Ensure that user clicked on a TreeCell
+//            if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+//                TreeItem selectedItem = (TreeItem) kafkaTree.getSelectionModel().getSelectedItem();
+//
+//                //selectedItem is a cluster, display cluster config
+//                if (selectedItem.getParent() != null && selectedItem.getParent().getValue() == "Kafka Clusters") {
+//                    FXMLLoader clusterConfigLoader = new FXMLLoader(getClass().getResource("/clusterConfig.fxml"));
+//                    GridPane mainRoot = clusterConfigLoader.load();
+//                    ClusterConfigController clusterConfigController = clusterConfigLoader.getController();
+//                    //find selected cluster from Clusters Array
+//                    Cluster selectedCluster = null;
+//
+//                    for (int i = 0; i < clusters.length; i++) {
+//                        if (clusters[i].getName().equals(selectedItem.getValue())) {
+//                            selectedCluster = new Cluster(clusters[i]);
+//                        }
+//                    }
+//
+//                    if (selectedCluster != null) {
+//                        clusterConfigController.populateScreen(selectedCluster, kafkaTree);
+//                        // mainContent.getChildren().setAll(mainRoot);
+//
+//                        unloadPreviousController(mainContent);
+//
+//                        mainContent.getItems().add(mainRoot);
+//
+//                    } else {
+//                        //todo
+//                        //  mainContent.getChildren().clear();
+//                    }
+//
+//                } //If selectedItem is a topic, display topic browser screen
+//                else if (selectedItem.getParent() != null && selectedItem.getParent().getGraphic() instanceof HBox) {
+//
+//                    FXMLLoader topicBrowserLoader = new FXMLLoader(getClass().getResource("/topicBrowser.fxml"));
+//
+//                    VBox mainRoot = topicBrowserLoader.load();
+//
+//                    //Display Progress bar
+//                    progBar2.setVisible(true);
+//
+//                    TopicBrowserController topicBrowserController = topicBrowserLoader.getController();
+//
+//                    //Get cluster info from cluster name
+//                    Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
+//
+//                    topicBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
+//                    //delete: mainContent.getChildren().setAll(mainRoot);
+//                    MyLogger.logInfo("Node mainContent.getItems().size()  " + mainContent.getItems().size());
+//
+//                    unloadPreviousController(mainContent);
+//
+//                    mainContent.getItems().add(mainRoot);
+//                } //If selectedItem is a consumer group, display consumer group screen
+//                else if (selectedItem.getParent() != null && selectedItem.getParent().getValue() == "consumer-groups") {
+//                    FXMLLoader consumerGroupBrowserLoader = new FXMLLoader(getClass().getResource("/consumerBrowser.fxml"));
+//                    VBox mainRoot = consumerGroupBrowserLoader.load();
+//
+//                    //Display Progress bar
+//                    progBar2.setVisible(true);
+//
+//                    ConsumerGroupController consumerGroupBrowserController = consumerGroupBrowserLoader.getController();
+//
+//                    //Get cluster info from cluster name
+//                    Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
+//                    consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
+//
+//                    unloadPreviousController(mainContent);
+//
+//                    mainContent.getItems().add(mainRoot);
+//                }
+//            }
+//        } catch (Exception e) {
+//            MyLogger.logError(e);
+//        }
     }
 
     private void unloadPreviousController(SplitPane mainContent) {
@@ -173,7 +268,7 @@ public class KafkaExplorerController implements Initializable {
             c1.setId(UUID.randomUUID().toString().replace("-", ""));
 
             new ConfigStore().addCluster(c1);
-            new UI().refreshClusterList(kafkaTree);
+            new UI().refreshClusterList(kafkaTree, null);
 
         } catch (IOException e) {
             MyLogger.logError(e);

@@ -7,7 +7,10 @@ import com.kafkaexplorer.utils.KafkaLib;
 import com.kafkaexplorer.utils.UI;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -193,7 +196,6 @@ public class TopicBrowserController implements Initializable {
 
         stopButton.setDisable(true);
         startButton.setDisable(true);
-
 
         Task<Integer> task = new Task<Integer>() {
             @Override
@@ -515,6 +517,7 @@ public class TopicBrowserController implements Initializable {
         favImage.setImage(image);
     }
 
+
     public void deleteTopic(MouseEvent mouseEvent) {
 
         String topicName = topic.getText();
@@ -524,18 +527,11 @@ public class TopicBrowserController implements Initializable {
             kafkaConnector.deleteTopic(cluster, topicName);
             //refresh cluster list
             try {
-                new UI().refreshClusterList(kafkaTreeRef);
-//                this.rootGridPane.getChildren().clear();
-//
+                new UI().refreshClusterList(kafkaTreeRef, cluster);
             } catch (IOException e) {
-                MyLogger.logError(e);
+                e.printStackTrace();
             }
         }
-
-
-
-
-
 
     }
 }

@@ -290,7 +290,7 @@ public class ClusterConfigController implements Initializable {
         new ConfigStore().saveCluster(cluster);
 
         //refresh cluster list
-        new UI().refreshClusterList(kafkaTreeRef);
+        new UI().refreshClusterList(kafkaTreeRef, null);
 
     }
 
@@ -353,7 +353,7 @@ public class ClusterConfigController implements Initializable {
             new ConfigStore().deleteCluster(cluster);
             //refresh cluster list
             try {
-                new UI().refreshClusterList(kafkaTreeRef);
+                new UI().refreshClusterList(kafkaTreeRef, null);
                 this.rootGridPane.getChildren().clear();
 
             } catch (IOException e) {
