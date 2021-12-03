@@ -381,9 +381,18 @@ public class KafkaLib {
 
         this.setProps(cluster);
         AdminClient kafkaClient = AdminClient.create(this.getProps());
-        //DeleteTopicsResult consumerInfo = kafkaClient.deleteTopics(Collections.singletonList(topicName));
+        DeleteTopicsResult deleteTopicsResult = kafkaClient.deleteTopics(Collections.singletonList(topicName));
 
-        MyLogger.logInfo("Deleting topic: " + topicName + " from cluster: " + cluster.getName() + " " + cluster.getHostname() + " - DONE");
+
+        try {
+            deleteTopicsResult.all().get();
+            MyLogger.logInfo("Deleted topic. name: " + topicName + ", result: " + deleteTopicsResult);
+        } catch (InterruptedException | ExecutionException  e) {
+            MyLogger.logError(e);
+        }
+
+
+        MyLogger.logInfo("Deleting topic: " + topicName + " from cluster: " + cluster.getName() + " " + cluster.getHostname() + " - DONE: " + deleteTopicsResult.toString());
     }
 
 }
