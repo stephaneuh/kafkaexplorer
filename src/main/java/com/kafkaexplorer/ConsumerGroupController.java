@@ -57,6 +57,10 @@ public class ConsumerGroupController implements Initializable {
                 consumerColumn.setCellValueFactory(new MapValueFactory<>("Consumer id"));
                 consumerColumn.setPrefWidth(80);
 
+                TableColumn<Map, Object> clientColumn = new TableColumn<>("Client id");
+                consumerColumn.setCellValueFactory(new MapValueFactory<>("Client id"));
+                consumerColumn.setPrefWidth(80);
+
                 TableColumn<Map, Object> hostColumn = new TableColumn<>("Host");
                 hostColumn.setCellValueFactory(new MapValueFactory<>("Host"));
                 hostColumn.setPrefWidth(80);
@@ -78,6 +82,7 @@ public class ConsumerGroupController implements Initializable {
                 lagColumn.setPrefWidth(80);
 
                 partitionOffsetTable.getColumns().add(consumerColumn);
+                partitionOffsetTable.getColumns().add(clientColumn);
                 partitionOffsetTable.getColumns().add(hostColumn);
                 partitionOffsetTable.getColumns().add(partitionColumn);
                 partitionOffsetTable.getColumns().add(offsetColumn);
@@ -109,6 +114,7 @@ public class ConsumerGroupController implements Initializable {
                     memberDescription.assignment().topicPartitions().forEach(topicPartition -> {
                         Map<String, Object> item1 = new HashMap<>();
                         item1.put("Consumer id", memberDescription.consumerId());
+                        item1.put("Client id", memberDescription.clientId());
                         item1.put("Host", memberDescription.host());
                         item1.put("Topic-Partition", topicPartition);
 
