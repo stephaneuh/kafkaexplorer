@@ -32,6 +32,7 @@ import org.apache.kafka.clients.admin.Config;
 import org.apache.kafka.clients.admin.ConfigEntry;
 import org.apache.kafka.common.KafkaFuture;
 import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.config.ConfigResource;
 import org.apache.kafka.common.config.TopicConfig;
 
 import java.io.File;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class TopicBrowserController implements Initializable {
 
@@ -216,6 +218,15 @@ public class TopicBrowserController implements Initializable {
 
                         KafkaFuture<Config> configFuture = kafkaConnector.getTopicInfo(cluster, topicName);
                         displayTopicInfo(configFuture);
+
+                        try {
+                            String clusterVersion = kafkaConnector.getClusterVersion(cluster);
+
+                            System.out.println(">>>>>>>" + clusterVersion.toString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 });
                 return 0;

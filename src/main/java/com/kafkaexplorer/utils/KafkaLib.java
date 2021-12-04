@@ -324,6 +324,29 @@ public class KafkaLib {
         return configFuture;
     }
 
+    public String getClusterVersion(Cluster cluster) throws IOException {
+        //Need to build an AdminClient (requires more privileges that a Kafka Consumer)
+
+        this.setProps(cluster);
+
+        AdminClient adminClient = KafkaAdminClient.create(this.getProps());
+
+        ConfigResource resource = new ConfigResource(ConfigResource.Type.BROKER, "inter.broker.protocol.version");
+
+        String kafkaVersion = "";
+        try {
+            Map<ConfigResource, Config> configs =
+                    adminClient.describeConfigs(Collections.singletonList(resource)).all().get();
+            kafkaVersion =
+                    configs.get(resource).get("inter.broker.protocol.version").value().split("-")[0];
+        } catch (ExecutionException | InterruptedException e) {
+            throw new IOException(e);
+        }
+        return kafkaVersion;
+
+
+    }
+
     public ArrayList<String> listConsumerGroups(Cluster cluster) throws ExecutionException, InterruptedException {
 
         Map<String, List<PartitionInfo>> topics;
