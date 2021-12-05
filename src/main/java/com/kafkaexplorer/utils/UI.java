@@ -1,14 +1,14 @@
 package com.kafkaexplorer.utils;
 
+import com.kafkaexplorer.ClusterConfigController;
 import com.kafkaexplorer.logger.MyLogger;
 import com.kafkaexplorer.model.Cluster;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class UI {
         return choose.get() == ButtonType.OK;
     }
 
-    public void refreshClusterList(TreeView<String>  kafkaTree, Cluster clusterToSelect) throws IOException {
+    public void refreshClusterList(TreeView<String>  kafkaTree, Cluster clusterToSelect, SplitPane mainContent) throws IOException {
 
         Cluster[] clusters = new ConfigStore().loadClusters();
 
@@ -51,7 +51,18 @@ public class UI {
             for(TreeItem<String> treeItem:root.getChildren()){
                 if(treeItem.getValue().equalsIgnoreCase(clusterToSelect.getName())){
                     kafkaTree.getSelectionModel().select(treeItem);
-                    kafkaTree.getSelectionModel().select(treeItem);
+
+                    mainContent.getItems().clear();
+
+
+//                    FXMLLoader clusterConfigLoader = new FXMLLoader(getClass().getResource("/clusterConfig.fxml"));
+//                    GridPane mainRoot = clusterConfigLoader.load();
+//                    ClusterConfigController clusterConfigController = clusterConfigLoader.getController();
+
+
+
+
+
                     break;
                 }
             }
