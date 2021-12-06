@@ -14,9 +14,11 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
@@ -24,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -219,13 +222,13 @@ public class TopicBrowserController implements Initializable {
                         KafkaFuture<Config> configFuture = kafkaConnector.getTopicInfo(cluster, topicName);
                         displayTopicInfo(configFuture);
 
-                        try {
-                            String clusterVersion = kafkaConnector.getClusterVersion(cluster);
-
-                            System.out.println(">>>>>>>" + clusterVersion.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            String clusterVersion = kafkaConnector.getClusterVersion(cluster);
+//
+//                            System.out.println(">>>>>>>" + clusterVersion.toString());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
 
                     }
                 });
@@ -535,13 +538,19 @@ public class TopicBrowserController implements Initializable {
 
         //Ask to confirm deletion
         if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Delete topic: " + topicName + "\n\n Are you sure?")) {
-            kafkaConnector.deleteTopic(cluster, topicName);
-            //refresh cluster list
+
+
+           // kafkaConnector.deleteTopic(cluster, topicName);
+
             try {
                 new UI().refreshClusterList(kafkaTreeRef, cluster);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            //TODO: display cluster info page
+
+
         }
 
     }

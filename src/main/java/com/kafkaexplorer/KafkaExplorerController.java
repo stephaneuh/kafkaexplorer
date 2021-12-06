@@ -46,7 +46,7 @@ public class KafkaExplorerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            new UI().refreshClusterList(kafkaTree, null, mainContent);
+            new UI().refreshClusterList(kafkaTree, null);
 
 
             MenuItem mi1 = new MenuItem("Copy");
@@ -268,7 +268,7 @@ public class KafkaExplorerController implements Initializable {
             c1.setId(UUID.randomUUID().toString().replace("-", ""));
 
             new ConfigStore().addCluster(c1);
-            new UI().refreshClusterList(kafkaTree, null, mainContent);
+            new UI().refreshClusterList(kafkaTree, null);
 
         } catch (IOException e) {
             MyLogger.logError(e);
