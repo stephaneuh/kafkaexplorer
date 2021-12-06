@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -26,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -542,13 +544,37 @@ public class TopicBrowserController implements Initializable {
 
            // kafkaConnector.deleteTopic(cluster, topicName);
 
+            //TODO: display cluster info page
+            FXMLLoader clusterConfigLoader = new FXMLLoader(getClass().getResource("/clusterConfig.fxml"));
+            GridPane mainRoot = null;
+
             try {
-                new UI().refreshClusterList(kafkaTreeRef, cluster);
+                Cluster[] clusters = new ConfigStore().loadClusters();
+                mainRoot = clusterConfigLoader.load();
+
+                ClusterConfigController clusterConfigController = clusterConfigLoader.getController();
+                //find selected cluster from Clusters Array
+
+                clusterConfigController.populateScreen(cluster, kafkaTreeRef);
+
+                SplitPane mainContent = (SplitPane)rootNode.getParent().getParent();
+
+                new UI().unloadPreviousController(mainContent);
+                mainContent.getItems().add(mainRoot);
+
+
+                new UI().removeTopicfromTree(kafkaTreeRef, cluster, topicName);
+
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            //TODO: display cluster info page
+
+
+
+
 
 
         }

@@ -27,6 +27,16 @@ public class UI {
         return choose.get() == ButtonType.OK;
     }
 
+    public void unloadPreviousController(SplitPane mainContent) {
+
+        if (mainContent.getItems().size() > 1) {
+            mainContent.getItems().remove(1);
+        } else {
+            MyLogger.logInfo("Unload not necessary");
+        }
+
+    }
+
     public void refreshClusterList(TreeView<String>  kafkaTree, Cluster clusterToSelect) throws IOException {
 
         Cluster[] clusters = new ConfigStore().loadClusters();
@@ -62,6 +72,12 @@ public class UI {
 
     public void manageFav(String topicName, String clusterName, Boolean isFav){
         MyLogger.logDebug(topicName + " >> " + clusterName + " >> " + isFav);
+
+
+    }
+
+    public void removeTopicfromTree(TreeView<String> kafkaTreeRef, Cluster cluster, String topicName) {
+        System.out.println(">>>>>>removeTopicfromTree");
 
 
     }

@@ -104,7 +104,7 @@ public class KafkaExplorerController implements Initializable {
                         clusterConfigController.populateScreen(selectedCluster, kafkaTree);
                         // mainContent.getChildren().setAll(mainRoot);
 
-                        unloadPreviousController(mainContent);
+                        new UI().unloadPreviousController(mainContent);
 
                         mainContent.getItems().add(mainRoot);
 
@@ -132,7 +132,7 @@ public class KafkaExplorerController implements Initializable {
                     //delete: mainContent.getChildren().setAll(mainRoot);
                     MyLogger.logInfo("Node mainContent.getItems().size()  " + mainContent.getItems().size());
 
-                    unloadPreviousController(mainContent);
+                    new UI().unloadPreviousController(mainContent);
 
                     mainContent.getItems().add(mainRoot);
                 } //If selectedItem is a consumer group, display consumer group screen
@@ -149,7 +149,7 @@ public class KafkaExplorerController implements Initializable {
                     Cluster cluster = new ConfigStore().getClusterByName(selectedItem.getParent().getParent().getValue().toString());
                     consumerGroupBrowserController.populateScreen(cluster, selectedItem.getValue().toString(), kafkaTree);
 
-                    unloadPreviousController(mainContent);
+                    new UI().unloadPreviousController(mainContent);
 
                     mainContent.getItems().add(mainRoot);
                 }
@@ -247,15 +247,7 @@ public class KafkaExplorerController implements Initializable {
 //        }
     }
 
-    private void unloadPreviousController(SplitPane mainContent) {
 
-        if (mainContent.getItems().size() > 1) {
-            mainContent.getItems().remove(1);
-        } else {
-            MyLogger.logInfo("Unload not necessary");
-        }
-
-    }
 
 
     public void addCluster(MouseEvent mouseEvent) {
