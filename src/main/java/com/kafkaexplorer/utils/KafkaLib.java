@@ -331,14 +331,23 @@ public class KafkaLib {
 
         AdminClient adminClient = KafkaAdminClient.create(this.getProps());
 
-        ConfigResource resource = new ConfigResource(ConfigResource.Type.BROKER, "inter.broker.protocol.version");
+        ConfigResource resource = new ConfigResource(ConfigResource.Type.BROKER, "0");
 
         String kafkaVersion = "";
         try {
-            Map<ConfigResource, Config> configs =
-                    adminClient.describeConfigs(Collections.singletonList(resource)).all().get();
-            kafkaVersion =
-                    configs.get(resource).get("inter.broker.protocol.version").value().split("-")[0];
+//            Map<ConfigResource, Config> configs =
+//                    adminClient.describeConfigs(Collections.singletonList(resource)).all().get();
+//            kafkaVersion =
+//                    configs.get(resource).get("inter.broker.protocol.version").value().split("-")[0];
+
+
+            DescribeConfigsResult dcr = adminClient.describeConfigs(Collections.singleton(resource));
+            dcr.all().get().forEach((k, c) -> {
+                c.entries()
+                        .forEach(configEntry -> {System.out.println(configEntry.name() + "= " + configEntry.value());});
+            });
+
+
         } catch (ExecutionException | InterruptedException e) {
             throw new IOException(e);
         }
