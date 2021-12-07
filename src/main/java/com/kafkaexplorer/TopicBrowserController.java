@@ -540,42 +540,15 @@ public class TopicBrowserController implements Initializable {
 
         //Ask to confirm deletion
         if (new UI().confirmationDialog(Alert.AlertType.CONFIRMATION, "Delete topic: " + topicName + "\n\n Are you sure?")) {
-
-
-           // kafkaConnector.deleteTopic(cluster, topicName);
-
-            //TODO: display cluster info page
-            FXMLLoader clusterConfigLoader = new FXMLLoader(getClass().getResource("/clusterConfig.fxml"));
-            GridPane mainRoot = null;
-
             try {
-                Cluster[] clusters = new ConfigStore().loadClusters();
-                mainRoot = clusterConfigLoader.load();
-
-                ClusterConfigController clusterConfigController = clusterConfigLoader.getController();
-                //find selected cluster from Clusters Array
-
-                clusterConfigController.populateScreen(cluster, kafkaTreeRef);
-
-                SplitPane mainContent = (SplitPane)rootNode.getParent().getParent();
-
-                new UI().unloadPreviousController(mainContent);
-                mainContent.getItems().add(mainRoot);
-
-
+                kafkaConnector.deleteTopic(cluster, topicName);
                 new UI().removeTopicfromTree(kafkaTreeRef, cluster, topicName);
 
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (ExecutionException e) {
+                MyLogger.logError(e);
+            } catch (InterruptedException e) {
+                MyLogger.logError(e);
             }
-
-
-
-
-
-
 
         }
 

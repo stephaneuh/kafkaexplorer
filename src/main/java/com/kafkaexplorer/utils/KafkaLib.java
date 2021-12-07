@@ -408,20 +408,16 @@ public class KafkaLib {
     }
 
 
-    public void deleteTopic(Cluster cluster, String topicName){
+    public void deleteTopic(Cluster cluster, String topicName) throws ExecutionException, InterruptedException {
         MyLogger.logInfo("Deleting topic: " + topicName + " from cluster: " + cluster.getName() + " " + cluster.getHostname());
 
         this.setProps(cluster);
         AdminClient kafkaClient = AdminClient.create(this.getProps());
         DeleteTopicsResult deleteTopicsResult = kafkaClient.deleteTopics(Collections.singletonList(topicName));
 
-
-        try {
             deleteTopicsResult.all().get();
             MyLogger.logInfo("Deleted topic. name: " + topicName + ", result: " + deleteTopicsResult);
-        } catch (InterruptedException | ExecutionException  e) {
-            MyLogger.logError(e);
-        }
+
 
 
         MyLogger.logInfo("Deleting topic: " + topicName + " from cluster: " + cluster.getName() + " " + cluster.getHostname() + " - DONE: " + deleteTopicsResult.toString());

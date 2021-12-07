@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
@@ -76,9 +77,31 @@ public class UI {
 
     }
 
-    public void removeTopicfromTree(TreeView<String> kafkaTreeRef, Cluster cluster, String topicName) {
-        System.out.println(">>>>>>removeTopicfromTree");
+    public void removeTopicfromTree(TreeView<String> kafkaTree, Cluster cluster, String topicName) {
 
+        TreeItem topicToBeDeleted = null;
+
+        for (TreeItem<String> level0Child : kafkaTree.getRoot().getChildren()) {
+            //find the cluster
+            if (level0Child.getValue().equalsIgnoreCase(cluster.getName())){
+                for (TreeItem<String> level1Child : level0Child.getChildren()) {
+                    //find the topic section (HBox instance)
+                    if (level1Child.getGraphic() instanceof HBox) {
+                        //delete the required topic from the list
+                        for (TreeItem<String> level2Child : level1Child.getChildren()) {
+                            if (level2Child.getValue().equalsIgnoreCase(topicName)){
+                                topicToBeDeleted = level2Child;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (topicToBeDeleted != null){
+            topicToBeDeleted.getParent().getChildren().remove(topicToBeDeleted);
+        }
 
     }
 }
