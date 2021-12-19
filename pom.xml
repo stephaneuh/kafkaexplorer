@@ -4,7 +4,7 @@
     <groupId>com.kafkaexplorer</groupId>
     <artifactId>kafkaexplorer</artifactId>
     <packaging>jar</packaging>
-    <version>1.1</version>
+    <version>1.2</version>
     <name>kafkaexplorer-${project.version}</name>
     <url>http://maven.apache.org</url>
 
@@ -79,16 +79,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.5.1</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.logging.log4j</groupId>-->
-<!--            <artifactId>log4j-api</artifactId>-->
-<!--            <version>2.14.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.logging.log4j</groupId>-->
-<!--            <artifactId>log4j-core</artifactId>-->
-<!--            <version>2.14.0</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
