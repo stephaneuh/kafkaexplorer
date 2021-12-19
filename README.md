@@ -46,13 +46,13 @@ Have questions? [Q&A section](https://github.com/stephaneuh/kafkaexplorer/discus
 
 ### Windows with Chocolatey: 
 ```
-choco install kafkaexplorer --version=1.1 --ignore-checksums --force
+choco install kafkaexplorer --version=1.2 --ignore-checksums --force
 ```
 or download and install manually the latest version: [Kafkaexplorer_1.1.exe](/releases/Kafkaexplorer_1.1.exe)
 ### MacOs with Brew: 
 ```
-brew tap stephaneuh/homebrew-repo
-brew install kafkaexplorer --force
+brew tap stephaneuh/kafkaexplorer
+brew install stephaneuh/kafkaexplorer/kafkaexplorer --cask --force
 ```
 or
 download and install manually the latest version: [Kafkaexplorer_1.1.dmg](/releases/Kafkaexplorer_1.1.dmg)
